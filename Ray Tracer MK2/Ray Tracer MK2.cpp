@@ -8,6 +8,7 @@
 #include "World.h"
 #include "Collision.h"
 #include "Color.h"
+#include "Material.h"
 
 using namespace std;
 
@@ -19,13 +20,17 @@ int main()
 
     int width = 200;
     int height = 200;
-    int samples = 1;
+    int samples = 5;
     int zoom = 20;
 
     Vector sphere1Location = Vector(0, 0, 10);
-    Sphere sphere1 = Sphere(sphere1Location, .1);
+    Material sphere1Mat;
+    sphere1Mat.color = Color(255, 0, 0);
+    Sphere sphere1 = Sphere(sphere1Location, .05, sphere1Mat);
     Vector sphere2Location = Vector(0, .1, 10);
-    Sphere sphere2 = Sphere(sphere2Location, .1);
+    Material sphere2Mat;
+    sphere2Mat.color = Color(0, 0, 255);
+    Sphere sphere2 = Sphere(sphere2Location, .08, sphere2Mat);
     vector <Sphere> spheres;
     spheres.push_back(sphere1);
     spheres.push_back(sphere2);
@@ -39,7 +44,9 @@ int main()
     for (int i = 0; i < 500; i++) {
         cout << frame << " ";
         frame++;
-        world.spheres.at(0).center.x = sin(frame / 10.0)/8.0;
+        world.spheres.at(0).center.x = sin(frame / 10.0)/6.0;
+        world.spheres.at(1).center.y = sin(frame / 15.0) / 6.0;
+        world.spheres.at(0).center.z = cos(frame / 10.0) / .2 + 10;
         collision.point = origin;
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -48,21 +55,11 @@ int main()
                 collision.outVector = cameraRay.direction;
                 collision.remainingBounces = 1;
                 collision.color = Color(0, 0, 0);
-                //Color pixelColor = Color(0, 0, 0);
-                //for (int s = 0; s < samples; s++) {
-                //    pixelColor = pixelColor + world.calcNextCollision(collision).color;
-                //}
-                //SetPixel(consoleDC, x, y+50, RGB(pixelColor.output().r, pixelColor.output().g, pixelColor.output().b));
-
-                //if (world.spheres.at(0).distanceAlongRay(cameraRay) != 0) {
-                //    SetPixel(consoleDC, x, y + 50, RGB(255,255,255));
-                //}
-                //else {
-                //    SetPixel(consoleDC, x, y + 50, RGB(0, 0, 0));
-                //}
-
-                Color pixelColor = world.calcNextCollision(collision).color;
-                SetPixel(consoleDC, x, y + 50, RGB(pixelColor.r, pixelColor.g, pixelColor.b));
+                Color pixelColor = Color(0, 0, 0);
+                for (int s = 0; s < samples; s++) {
+                    pixelColor = pixelColor + world.calcNextCollision(collision).color;
+                }
+                SetPixel(consoleDC, x*2, y*2+50, RGB(pixelColor.output().r, pixelColor.output().g, pixelColor.output().b));
             }
         }
     }

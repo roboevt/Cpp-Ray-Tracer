@@ -26,7 +26,7 @@ Collision World::calcNextCollision(Collision& collision) {
 		if (hitSomething) {
 			collision.remainingBounces -= 1;
 			collision.inVector = collision.outVector;
-			collision.color = Color(255, 255, 255); // Eventually this will be the hittable's material's color.
+			collision.color = collision.hitObject.material.color;
 			//calculate normal here
 			return this->calcNextCollision(collision);
 		}
