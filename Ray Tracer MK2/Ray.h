@@ -7,6 +7,6 @@ public:
 	Vector origin;
 	Vector direction;
 
-	Ray(Vector& origin,Vector& direction);
+	Ray(const Vector& origin,const Vector& direction);
 };
 
