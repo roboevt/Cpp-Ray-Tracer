@@ -19,3 +19,7 @@ float Sphere::distanceAlongRay(Ray& ray) {
 		return (-halfB - sqrt(discriminant)) / a;
 	}
 }
+
+//Vector Sphere::calculateNormal(Vector& point) {
+//	return point - this->center;
+//}

@@ -1,4 +1,7 @@
 #pragma once
+#ifndef RAY_H
+#define RAY_H
+
 #include "Vector.h"
 
 class Ray
@@ -12,3 +15,4 @@ public:
 	Vector at(float distance);
 };
 
+#endif

@@ -1,5 +1,7 @@
 #pragma once
-#include <cstdint>
+#ifndef COLOR_H
+#define COLOR_H
+
 class Color
 {
 public:
@@ -13,3 +15,4 @@ public:
 	Color output();
 };
 
+#endif

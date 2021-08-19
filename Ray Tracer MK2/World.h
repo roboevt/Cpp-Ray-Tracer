@@ -1,4 +1,6 @@
 #pragma once
+#ifndef WORLD_H
+#define WORLD_H
 #include <vector>
 #include "Sphere.h"
 #include "Collision.h"
@@ -13,3 +15,4 @@ public:
 	Collision calcNextCollision(Collision& collision);
 };
 
+#endif

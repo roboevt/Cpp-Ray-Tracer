@@ -1,4 +1,7 @@
 #pragma once
+#ifndef COLLISION_H
+#define COLLISION_H
+
 #include "Vector.h"
 #include "Ray.h"
 #include "Hittable.h"
@@ -17,3 +20,5 @@ public:
 
 	Collision();
 };
+
+#endif

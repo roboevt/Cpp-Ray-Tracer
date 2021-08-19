@@ -1,4 +1,6 @@
 #pragma once
+#ifndef VECTOR_H
+#define VECTOR_H
 
 #include <math.h>
 #include <iostream>
@@ -32,3 +34,4 @@ public:
 	Vector normalized();
 };
 
+#endif

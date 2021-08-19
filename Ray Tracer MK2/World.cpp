@@ -27,7 +27,7 @@ Collision World::calcNextCollision(Collision& collision) {
 			collision.remainingBounces -= 1;
 			collision.inVector = collision.outVector;
 			collision.color = collision.hitObject.material.color;
-			//calculate normal here
+			//collision.normal = collision.hitObject.calculateNormal(collision.point);
 			return this->calcNextCollision(collision);
 		}
 		else { // hit nothing, return background color
