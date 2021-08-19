@@ -30,6 +30,15 @@
     <ClCompile Include="World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hittable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector.h">
@@ -42,6 +51,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hittable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

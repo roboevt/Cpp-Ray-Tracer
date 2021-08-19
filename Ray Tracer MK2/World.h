@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include "Sphere.h"
+#include "Collision.h"
+#include "Ray.h"
 class World
 {
 public:
@@ -8,6 +10,6 @@ public:
 
 	World(vector <Sphere> spheres);
 
-	float distanceAlongRay(Ray& ray);
+	Collision calcNextCollision(Collision& collision);
 };
 

@@ -1,8 +1,9 @@
 #pragma once
 #include "Vector.h"
 #include "Ray.h"
+#include "Hittable.h"
 
-class Sphere
+class Sphere : public Hittable
 {
 public:
 	Vector center;

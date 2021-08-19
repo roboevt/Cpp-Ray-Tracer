@@ -8,5 +8,7 @@ public:
 	Vector direction;
 
 	Ray(const Vector& origin,const Vector& direction);
+
+	Vector at(float distance);
 };
 
