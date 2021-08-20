@@ -142,7 +142,6 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Hittable.cpp" />
-    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Ray Tracer MK2.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Sphere.cpp" />
@@ -153,7 +152,6 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Hittable.h" />
-    <ClInclude Include="Material.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Vector.h" />

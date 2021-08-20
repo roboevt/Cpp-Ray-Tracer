@@ -26,18 +26,41 @@ Collision World::calcNextCollision(Collision& collision) {
 		if (hitSomething) {
 			collision.remainingBounces -= 1;
 			collision.inVector = collision.outVector;
-			collision.color = collision.hitObject.material.color;
-			//collision.normal = collision.hitObject.calculateNormal(collision.point);
+			collision.color = collision.color + collision.hitObject.color;
+			collision.normal = collision.hitObject.calculateNormal(collision.point);
+			collision = evaluateCollision(collision);
 			return this->calcNextCollision(collision);
 		}
 		else { // hit nothing, return background color
-			//cout << "no hit";
 			collision.remainingBounces = 0;
-			collision.color = Color(50,50,50);
+			collision.color = collision.color + Color(68, 85, 90);  // light blue
 			return collision;
 		}
 	}
 	else { //No bounces left
 		return collision;
 	}
+}
+
+Collision World::evaluateCollision(Collision& collision) {
+	if (collision.hitObject.shader == 1) {  // diffuse
+		if (collision.remainingBounces > 0) {
+			collision.outVector = collision.point + collision.normal + randomInUnitSphere();
+		}
+		else {
+			cout << collision.color.samples;
+			collision.color = collision.color + collision.hitObject.color;
+		}
+	}
+	return collision;
+}
+
+Vector World::randomInUnitSphere() {
+	Vector test = Vector(1, 1, 1);
+	while (test.magnitudeSquared() > 1) {
+		test.x = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+		test.y = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+		test.z = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+	}
+	return test;
 }

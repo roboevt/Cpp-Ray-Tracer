@@ -10,7 +10,7 @@ Color::Color(int r, int g, int b, int samples) {
 Color::Color() {}
 
 Color Color::operator+(Color other) {
-	return Color(this->r + other.r, this->g + other.g, this->b + other.b, this->samples + 1);
+	return Color(this->r + other.r, this->g + other.g, this->b + other.b, this->samples + other.samples + 1);
 }
 
 Color Color::output() {

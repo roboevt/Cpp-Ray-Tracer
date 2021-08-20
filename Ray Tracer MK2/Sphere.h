@@ -4,17 +4,16 @@
 #include "Vector.h"
 #include "Ray.h"
 #include "Hittable.h"
-#include "Material.h"
 
 class Sphere : public Hittable
 {
 public:
 
-	Sphere(Vector& center, float radius, Material material);
+	Sphere(Vector& center, float radius, Color& color);
 	
 	float distanceAlongRay(Ray& ray);
 
-	//Vector calculateNormal(Vector& point);
+	Vector calculateNormal(Vector& point);
 };
 
 #endif

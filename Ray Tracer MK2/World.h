@@ -13,6 +13,10 @@ public:
 	World(vector <Sphere> spheres);
 
 	Collision calcNextCollision(Collision& collision);
+
+	Collision evaluateCollision(Collision& collision);
+
+	Vector randomInUnitSphere();
 };
 
 #endif

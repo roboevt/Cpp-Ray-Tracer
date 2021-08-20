@@ -3,16 +3,17 @@
 #define HITTABLE_H
 
 #include "Vector.h"
-#include "Material.h"
+#include "Color.h"
 
 class Hittable
 {
 public:
 	Vector center;
 	float radius;
-	Material material;
+	Color color;
+	int shader;
 
-	//Vector calculateNormal(Vector& point);
+	Vector calculateNormal(Vector& point);
 };
 
 #endif
