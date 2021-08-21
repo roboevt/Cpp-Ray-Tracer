@@ -12,7 +12,7 @@ Color World::calcColor(Collision collision) {
 		float minDistance = FLT_MAX;
 		float testDistance;
 
-		Ray ray = Ray(collision.point, collision.outVector);
+		Ray ray = Ray(collision.point, collision.outVector.normalized());
 		bool hitSomething = false;
 		for (Sphere sphere : this->spheres) {
 			testDistance = sphere.distanceAlongRay(ray);
@@ -48,10 +48,12 @@ Color World::calcColor(Collision collision) {
 }
 
 Vector World::calcBounce(Collision& collision) {
-	if (collision.hitObject.shader == 1) {  // diffuse
-		return (collision.normal + randomInUnitSphere()).normalized();
-	}
-	return Vector(0, 0, 1);
+	//if (collision.hitObject.shader == 1) {  // diffuse
+		Vector output = (collision.normal + randomInUnitSphere());
+		//cout << output << "       " << output.magnitude() << "      ";
+		return output;
+	//}
+	//return Vector(0, 0, 1);
 }
 
 Vector World::randomInUnitSphere() {
@@ -60,6 +62,7 @@ Vector World::randomInUnitSphere() {
 		test.x = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
 		test.y = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
 		test.z = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
+		
 	}
 	return test;
 }

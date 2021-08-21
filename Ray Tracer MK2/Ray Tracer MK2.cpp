@@ -21,10 +21,10 @@ int main()
     GetWindowRect(consoleWindow, &r);
     MoveWindow(consoleWindow, r.left, r.top, 800, 800, TRUE);
 
-    int width = 800;
-    int height = 800;
+    int width = 400;
+    int height = 400;
     int samples = 20;
-    int bounceLimit = 100;
+    int bounceLimit = 4;
     float zoom = 2;
 
     Vector sphere1Location = Vector(0, 0, .9);
