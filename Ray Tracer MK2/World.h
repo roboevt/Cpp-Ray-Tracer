@@ -14,7 +14,7 @@ public:
 
 	Color calcColor(Collision collision);
 
-	Ray calcBounce (Collision& collision);
+	Vector calcBounce (Collision& collision);
 
 	Vector randomInUnitSphere();
 };

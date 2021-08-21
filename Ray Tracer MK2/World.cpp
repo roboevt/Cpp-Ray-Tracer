@@ -28,7 +28,8 @@ Color World::calcColor(Collision collision) {
 			collision.inVector = collision.outVector;
 			collision.color = collision.color + collision.hitObject.color;
 			collision.normal = collision.hitObject.calculateNormal(collision.point);
-			collision.outVector = calcBounce(collision).direction;
+			//collision.normal = (collision.point - collision.hitObject.center).normalized();
+			collision.outVector = calcBounce(collision);
 			return this->calcColor(collision) * 0.9;
 		}
 		else { // hit nothing, return background color
@@ -46,20 +47,19 @@ Color World::calcColor(Collision collision) {
 	}
 }
 
-Ray World::calcBounce(Collision& collision) {
+Vector World::calcBounce(Collision& collision) {
 	if (collision.hitObject.shader == 1) {  // diffuse
-		Vector outVector = collision.point + collision.normal + randomInUnitSphere();
-		return Ray(collision.point, outVector);
+		return (collision.normal + randomInUnitSphere()).normalized();
 	}
-	return Ray(collision.point, Vector(0, 0, 1));
+	return Vector(0, 0, 1);
 }
 
 Vector World::randomInUnitSphere() {
 	Vector test = Vector(1, 1, 1);
-	while (test.magnitudeSquared() > 1) {
-		test.x = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 2.0 - 1.0;
-		test.y = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 2.0 - 1.0;
-		test.z = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 2.0 - 1.0;
+	while (test.magnitudeSquared() > 1.0) {
+		test.x = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
+		test.y = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
+		test.z = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
 	}
 	return test;
 }

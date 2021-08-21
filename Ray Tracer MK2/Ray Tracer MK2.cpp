@@ -8,6 +8,7 @@
 #include "World.h"
 #include "Collision.h"
 #include "Color.h"
+#include "Camera.h"
 
 using namespace std;
 
@@ -16,11 +17,14 @@ HWND consoleWindow = GetConsoleWindow();
 int main()
 {
     HDC consoleDC = GetDC(consoleWindow);
+    RECT r;
+    GetWindowRect(consoleWindow, &r);
+    MoveWindow(consoleWindow, r.left, r.top, 800, 800, TRUE);
 
     int width = 800;
     int height = 800;
-    int samples = 100;
-    int bounceLimit = 5;
+    int samples = 20;
+    int bounceLimit = 100;
     float zoom = 2;
 
     Vector sphere1Location = Vector(0, 0, .9);
@@ -36,6 +40,10 @@ int main()
     spheres.push_back(sphere2);
     World world = World(spheres);
 
+    Camera camera = Camera();
+    camera.zoom = zoom;
+    camera.location = Vector(0, .3, 0);
+
     Vector origin = Vector(0, 0, 0);
     Vector direction = Vector(0, 0, 0);
     Ray cameraRay = Ray(origin, direction);
@@ -49,9 +57,10 @@ int main()
         //collision.point = origin;
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                cameraRay.direction = Vector((x - width / 2.0f) / width, (-y + height / 2.0f) / height, zoom);
-                collision.point = cameraRay.origin;
-                collision.outVector = cameraRay.direction;
+                float xCam = (x - width / 2.0f) / width;
+                float yCam = (-y + height / 2.0f) / height;
+                collision.point = camera.location;
+                collision.outVector = camera.generateRay(xCam, yCam).direction;
                 collision.remainingBounces = bounceLimit;
                 collision.color = Color(0, 0, 0);
                 Color pixelColor = Color(0, 0, 0);
