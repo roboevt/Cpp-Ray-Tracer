@@ -2,7 +2,7 @@
 
 Camera::Camera() {
 	this->location = Vector(0, 0, 0);
-	this->xAnlge = 20;
+	this->xAnlge = 0;
 	this->yAngle = 90;
 	this->zAngle = 0;
 	this->zoom = 2;

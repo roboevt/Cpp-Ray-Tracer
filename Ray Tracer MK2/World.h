@@ -12,7 +12,9 @@ public:
 
 	World(vector <Sphere> spheres);
 
-	Color calcColor(Collision collision);
+	Color calcColor(Ray ray, int remainingBounces);
+
+	bool hit(Ray ray, Collision& collision);
 
 	Vector calcBounce (Collision& collision);
 

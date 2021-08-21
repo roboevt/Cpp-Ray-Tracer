@@ -21,19 +21,19 @@ int main()
     GetWindowRect(consoleWindow, &r);
     MoveWindow(consoleWindow, r.left, r.top, 800, 800, TRUE);
 
-    int width = 400;
-    int height = 400;
-    int samples = 20;
-    int bounceLimit = 4;
+    int width = 800;
+    int height = 800;
+    int samples = 100;
+    int bounceLimit = 1;
     float zoom = 2;
 
-    Vector sphere1Location = Vector(0, 0, .9);
+    Vector sphere1Location = Vector(0, 0, 0);
     Color sphere1Color = Color(255, 255, 255);
-    Sphere sphere1 = Sphere(sphere1Location, .1, sphere1Color);
+    Sphere sphere1 = Sphere(sphere1Location, .05, sphere1Color);
     sphere1.shader = 1;
-    Vector sphere2Location = Vector(0, -10, .9);
+    Vector sphere2Location = Vector(0, -10, 0);
     Color sphere2Color = Color(255, 255, 255);
-    Sphere sphere2 = Sphere(sphere2Location, 9.9, sphere2Color);
+    Sphere sphere2 = Sphere(sphere2Location, 9.8, sphere2Color);
     sphere2.shader = 1;
     vector <Sphere> spheres;
     spheres.push_back(sphere1);
@@ -42,7 +42,8 @@ int main()
 
     Camera camera = Camera();
     camera.zoom = zoom;
-    camera.location = Vector(0, .3, 0);
+    camera.location = Vector(0, .3, -1);
+    camera.xAnlge = 20;
 
     Vector origin = Vector(0, 0, 0);
     Vector direction = Vector(0, 0, 0);
@@ -60,13 +61,14 @@ int main()
                 float xCam = (x - width / 2.0f) / width;
                 float yCam = (-y + height / 2.0f) / height;
                 collision.point = camera.location;
-                collision.outVector = camera.generateRay(xCam, yCam).direction;
+                cameraRay = camera.generateRay(xCam, yCam);
+                collision.outVector = cameraRay.direction;
                 collision.remainingBounces = bounceLimit;
                 collision.color = Color(0, 0, 0);
                 Color pixelColor = Color(0, 0, 0);
                 for (int s = 0; s < samples; s++) {
                     //cout << pixelColor.samples << "  ";
-                    pixelColor = pixelColor + world.calcColor(collision);
+                    pixelColor = pixelColor + world.calcColor(cameraRay, bounceLimit+1);
                 }
                 SetPixel(consoleDC, x, y, RGB(pixelColor.output().r, pixelColor.output().g, pixelColor.output().b));
             }
