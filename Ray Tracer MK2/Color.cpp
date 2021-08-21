@@ -1,4 +1,5 @@
 #include "Color.h"
+#include <iostream>
 
 Color::Color(int r, int g, int b, int samples) {
 	this->r = r;
@@ -7,13 +8,26 @@ Color::Color(int r, int g, int b, int samples) {
 	this->samples = samples;
 }
 
-Color::Color() {}
+Color::Color() {
+	this->r = 0;
+	this->g = 0;
+	this->b = 0;
+	this->samples = 0;
+}
 
 Color Color::operator+(Color other) {
 	return Color(this->r + other.r, this->g + other.g, this->b + other.b, this->samples + other.samples + 1);
 }
 
+Color Color::operator*(float scale) {
+	int rOut = static_cast<float>(this->r) * scale;
+	int gOut = static_cast<float>(this->g) * scale;
+	int bOut = static_cast<float>(this->b) * scale;
+	return Color(rOut, gOut, bOut);
+}
+
 Color Color::output() {
+	//std::cout << this->samples << "  ";
 	int rOut = static_cast<float>(this->r) / static_cast<float>(this->samples);
 	int gOut = static_cast<float>(this->g) / static_cast<float>(this->samples);
 	int bOut = static_cast<float>(this->b) / static_cast<float>(this->samples);

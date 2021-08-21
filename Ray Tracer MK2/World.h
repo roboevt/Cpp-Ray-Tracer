@@ -12,9 +12,9 @@ public:
 
 	World(vector <Sphere> spheres);
 
-	Collision calcNextCollision(Collision& collision);
+	Color calcColor(Collision collision);
 
-	Collision evaluateCollision(Collision& collision);
+	Ray calcBounce (Collision& collision);
 
 	Vector randomInUnitSphere();
 };

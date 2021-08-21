@@ -7,7 +7,7 @@ World::World(vector <Sphere> spheres) {
 	this->spheres = spheres;
 }
 
-Collision World::calcNextCollision(Collision& collision) {
+Color World::calcColor(Collision collision) {
 	if (collision.remainingBounces > 0) {
 		float minDistance = FLT_MAX;
 		float testDistance;
@@ -28,39 +28,38 @@ Collision World::calcNextCollision(Collision& collision) {
 			collision.inVector = collision.outVector;
 			collision.color = collision.color + collision.hitObject.color;
 			collision.normal = collision.hitObject.calculateNormal(collision.point);
-			collision = evaluateCollision(collision);
-			return this->calcNextCollision(collision);
+			collision.outVector = calcBounce(collision).direction;
+			return this->calcColor(collision) * 0.9;
 		}
 		else { // hit nothing, return background color
 			collision.remainingBounces = 0;
-			collision.color = collision.color + Color(68, 85, 90);  // light blue
-			return collision;
+			//collision.color = collision.color + Color(68, 85, 90);  // light blue
+			//collision.color = collision.color + Color(0, 0, 0);  // black
+			//float t = collision.outVector.y;
+			//return Color(255, 255, 255) * (1.0-t) + Color(128, 200, 255) * t;
+			return Color(255,255,255);  // Background color
 		}
 	}
 	else { //No bounces left
-		return collision;
+		return Color(0, 0, 0);
+		//return collision.hitObject.color;
 	}
 }
 
-Collision World::evaluateCollision(Collision& collision) {
+Ray World::calcBounce(Collision& collision) {
 	if (collision.hitObject.shader == 1) {  // diffuse
-		if (collision.remainingBounces > 0) {
-			collision.outVector = collision.point + collision.normal + randomInUnitSphere();
-		}
-		else {
-			cout << collision.color.samples;
-			collision.color = collision.color + collision.hitObject.color;
-		}
+		Vector outVector = collision.point + collision.normal + randomInUnitSphere();
+		return Ray(collision.point, outVector);
 	}
-	return collision;
+	return Ray(collision.point, Vector(0, 0, 1));
 }
 
 Vector World::randomInUnitSphere() {
 	Vector test = Vector(1, 1, 1);
 	while (test.magnitudeSquared() > 1) {
-		test.x = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-		test.y = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-		test.z = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+		test.x = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 2.0 - 1.0;
+		test.y = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 2.0 - 1.0;
+		test.z = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) * 2.0 - 1.0;
 	}
 	return test;
 }

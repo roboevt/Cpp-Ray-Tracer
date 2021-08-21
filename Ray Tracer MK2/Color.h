@@ -12,6 +12,8 @@ public:
 
 	Color operator+(Color other);
 
+	Color operator*(float scale);
+
 	Color output();
 };
 

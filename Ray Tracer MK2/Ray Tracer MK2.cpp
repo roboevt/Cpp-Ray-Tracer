@@ -17,18 +17,19 @@ int main()
 {
     HDC consoleDC = GetDC(consoleWindow);
 
-    int width = 400;
-    int height = 400;
-    int samples = 150;
-    int zoom = 20;
+    int width = 800;
+    int height = 800;
+    int samples = 100;
+    int bounceLimit = 5;
+    float zoom = 2;
 
-    Vector sphere1Location = Vector(0, 0, 10);
+    Vector sphere1Location = Vector(0, 0, .9);
     Color sphere1Color = Color(255, 255, 255);
     Sphere sphere1 = Sphere(sphere1Location, .1, sphere1Color);
     sphere1.shader = 1;
-    Vector sphere2Location = Vector(0, -1, 10);
+    Vector sphere2Location = Vector(0, -10, .9);
     Color sphere2Color = Color(255, 255, 255);
-    Sphere sphere2 = Sphere(sphere2Location, .9, sphere2Color);
+    Sphere sphere2 = Sphere(sphere2Location, 9.9, sphere2Color);
     sphere2.shader = 1;
     vector <Sphere> spheres;
     spheres.push_back(sphere1);
@@ -51,12 +52,12 @@ int main()
                 cameraRay.direction = Vector((x - width / 2.0f) / width, (-y + height / 2.0f) / height, zoom);
                 collision.point = cameraRay.origin;
                 collision.outVector = cameraRay.direction;
-                collision.remainingBounces = 4;
+                collision.remainingBounces = bounceLimit;
                 collision.color = Color(0, 0, 0);
                 Color pixelColor = Color(0, 0, 0);
                 for (int s = 0; s < samples; s++) {
                     //cout << pixelColor.samples << "  ";
-                    pixelColor = pixelColor + world.calcNextCollision(collision).color;
+                    pixelColor = pixelColor + world.calcColor(collision);
                 }
                 SetPixel(consoleDC, x, y, RGB(pixelColor.output().r, pixelColor.output().g, pixelColor.output().b));
             }
