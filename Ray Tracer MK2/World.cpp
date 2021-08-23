@@ -25,12 +25,12 @@ bool World::hit(Ray ray, Collision& collision) {
 			hitAnything = true;
 			closest = distance;
 			collision.hitObject = sphere;
-			collision.point = ray.origin + ray.direction.normalized() * distance;
+			collision.point = ray.at(distance);
 		}
 	}
 	if (hitAnything) {
 		collision.normal = (collision.point - collision.hitObject.center).normalized();  // should probably be normalized
-		collision.point = collision.point + collision.normal * .01;
+		//collision.point = collision.point + collision.normal * .001;
 		collision.inVector = collision.outVector;
 		collision.outVector = calcBounce(collision);
 	}

@@ -15,9 +15,14 @@ float Sphere::distanceAlongRay(Ray& ray) {
 	if (discriminant < 0) {
 		return 0;
 	}
-	else {
-		return (-halfB - sqrt(discriminant)) / a;
+	float sqrtd = sqrt(discriminant);
+	float root1 = (-halfB - sqrtd) / a;
+	float root2 = (-halfB + sqrtd) / a;
+	if (root1 < root2) {
+		return root1;
 	}
+	return root2;
+	
 }
 
 Vector Sphere::calculateNormal(Vector& point) {

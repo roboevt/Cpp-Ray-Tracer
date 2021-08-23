@@ -25,15 +25,15 @@ int main()
     int height = 800;
     int samples = 100;
     int bounceLimit = 1;
-    float zoom = 2;
+    float zoom = .8;
 
     Vector sphere1Location = Vector(0, 0, 0);
     Color sphere1Color = Color(255, 255, 255);
-    Sphere sphere1 = Sphere(sphere1Location, .05, sphere1Color);
+    Sphere sphere1 = Sphere(sphere1Location, .1, sphere1Color);
     sphere1.shader = 1;
     Vector sphere2Location = Vector(0, -10, 0);
     Color sphere2Color = Color(255, 255, 255);
-    Sphere sphere2 = Sphere(sphere2Location, 9.8, sphere2Color);
+    Sphere sphere2 = Sphere(sphere2Location, 9.9, sphere2Color);
     sphere2.shader = 1;
     vector <Sphere> spheres;
     spheres.push_back(sphere1);
@@ -42,14 +42,15 @@ int main()
 
     Camera camera = Camera();
     camera.zoom = zoom;
-    camera.location = Vector(0, .3, -1);
-    camera.xAnlge = 20;
+    camera.location = Vector(0, .1, -.5);
+    camera.xAnlge = 10;
 
     Vector origin = Vector(0, 0, 0);
     Vector direction = Vector(0, 0, 0);
     Ray cameraRay = Ray(origin, direction);
     Collision collision;
     int frame = 0;
+    
     for (int i = 0; i < 100; i++) {
         frame++;
         //world.spheres.at(0).center.x = sin(frame / 10.0)/6.0;

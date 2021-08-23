@@ -21,7 +21,7 @@ Ray Camera::generateRay(float x, float y) {
 	float zRot2 = zRot1 * sin(toRadians(this->yAngle)) + xRot1 * cos(toRadians(this->yAngle));
 	float yRot2 = yRot1;
 	
-	return Ray(this->location, Vector(xRot2, yRot2, zRot2));
+	return Ray(this->location, Vector(xRot2, yRot2, zRot2).normalized());
 }
 
 float Camera::toRadians(float degrees) {
