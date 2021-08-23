@@ -12,6 +12,7 @@ public:
 	float radius;
 	Color color;
 	int shader;
+	float absorbtion;
 
 	Vector calculateNormal(Vector& point);
 };

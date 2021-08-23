@@ -9,6 +9,7 @@ class World
 {
 public:
 	vector <Sphere> spheres;
+	Color backgroundColor;
 
 	World(vector <Sphere> spheres);
 

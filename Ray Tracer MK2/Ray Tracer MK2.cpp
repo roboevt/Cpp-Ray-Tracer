@@ -23,26 +23,41 @@ int main()
 
     int width = 800;
     int height = 800;
-    int samples = 100;
-    int bounceLimit = 1;
-    float zoom = .8;
+    int samples = 500;
+    int bounceLimit = 5;
+    float zoom = 2;
 
     Vector sphere1Location = Vector(0, 0, 0);
     Color sphere1Color = Color(255, 255, 255);
     Sphere sphere1 = Sphere(sphere1Location, .1, sphere1Color);
     sphere1.shader = 1;
+    sphere1.absorbtion = .3;
     Vector sphere2Location = Vector(0, -10, 0);
     Color sphere2Color = Color(255, 255, 255);
     Sphere sphere2 = Sphere(sphere2Location, 9.9, sphere2Color);
     sphere2.shader = 1;
+    sphere2.absorbtion = .9;
+    Vector sphere3Location = Vector(.14, 0, 0);
+    Color sphere3Color = Color(255, 255, 255);
+    Sphere sphere3 = Sphere(sphere3Location, .05, sphere3Color);
+    sphere3.shader = 1;
+    sphere3.absorbtion = .8;
+    Vector sphere4Location = Vector(-.14, 0, 0);
+    Color sphere4Color = Color(255, 255, 255);
+    Sphere sphere4 = Sphere(sphere4Location, .05, sphere4Color);
+    sphere4.shader = 1;
+    sphere4.absorbtion = .8;
     vector <Sphere> spheres;
     spheres.push_back(sphere1);
     spheres.push_back(sphere2);
+    spheres.push_back(sphere3);
+    spheres.push_back(sphere4);
     World world = World(spheres);
+    world.backgroundColor = Color(255, 255, 255);
 
     Camera camera = Camera();
     camera.zoom = zoom;
-    camera.location = Vector(0, .1, -.5);
+    camera.location = Vector(0, .1, -1);
     camera.xAnlge = 10;
 
     Vector origin = Vector(0, 0, 0);
@@ -70,6 +85,9 @@ int main()
                 for (int s = 0; s < samples; s++) {
                     //cout << pixelColor.samples << "  ";
                     pixelColor = pixelColor + world.calcColor(cameraRay, bounceLimit+1);
+                    if (pixelColor.r == world.backgroundColor.r && pixelColor.g == world.backgroundColor.g && pixelColor.b == world.backgroundColor.b) {
+                        break;
+                    }
                 }
                 SetPixel(consoleDC, x, y, RGB(pixelColor.output().r, pixelColor.output().g, pixelColor.output().b));
             }

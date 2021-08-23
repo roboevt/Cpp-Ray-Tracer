@@ -11,9 +11,9 @@ Color World::calcColor(Ray ray, int remainingBounces) {
 	Collision collision;
 	if (hit(ray, collision)) {
 		Ray nextRay = Ray(collision.point, collision.outVector);
-		return calcColor(nextRay, remainingBounces - 1) * 0.5;
+		return calcColor(nextRay, remainingBounces - 1) * collision.hitObject.absorbtion;
 	}
-	return Color(255, 255, 255);  // did not hit anything, so return background color
+	return this->backgroundColor;
 }
 
 bool World::hit(Ray ray, Collision& collision) {
@@ -30,7 +30,6 @@ bool World::hit(Ray ray, Collision& collision) {
 	}
 	if (hitAnything) {
 		collision.normal = (collision.point - collision.hitObject.center).normalized();  // should probably be normalized
-		//collision.point = collision.point + collision.normal * .001;
 		collision.inVector = collision.outVector;
 		collision.outVector = calcBounce(collision);
 	}
