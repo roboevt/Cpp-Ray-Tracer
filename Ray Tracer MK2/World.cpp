@@ -10,8 +10,11 @@ Color World::calcColor(Ray ray, int remainingBounces) {
 	}
 	Collision collision;
 	if (hit(ray, collision)) {
+		if (collision.hitObject.shader == 3) {
+			return Color(1000,1000,1000);
+		}
 		Ray nextRay = Ray(collision.point, collision.outVector);
-		return calcColor(nextRay, remainingBounces - 1) * collision.hitObject.absorbtion;
+		return calcColor(nextRay, remainingBounces - 1) * collision.absorbtion;
 	}
 	return this->backgroundColor;
 }
@@ -19,7 +22,7 @@ Color World::calcColor(Ray ray, int remainingBounces) {
 bool World::hit(Ray ray, Collision& collision) {
 	float closest = std::numeric_limits<float>::max();
 	bool hitAnything = false;
-	for (Sphere sphere : this->spheres) {
+	for (Sphere& sphere : this->spheres) {
 		float distance = sphere.distanceAlongRay(ray);
 		if (distance > 0 && distance < closest) {
 			hitAnything = true;
@@ -38,7 +41,12 @@ bool World::hit(Ray ray, Collision& collision) {
 
 Vector World::calcBounce(Collision& collision) {
 	if (collision.hitObject.shader == 1) {  // diffuse
-		return (collision.normal + randomInUnitSphere()).normalized();  // might not need to normalize
+		collision.absorbtion = collision.hitObject.absorbtion;
+		return (collision.normal + randomInUnitSphere()).normalized();
+	}
+	if (collision.hitObject.shader == 2) {  // reflective
+		collision.absorbtion = 1;
+		return Vector(0, 0, 0) - ((collision.normal * collision.inVector.dot(collision.normal)) * 2) - collision.inVector;
 	}
 	return Vector(0, 0, 1);
 }

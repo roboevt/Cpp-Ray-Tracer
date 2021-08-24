@@ -16,6 +16,7 @@ public:
 	Vector outVector;
 	Vector normal;
 	Color color;
+	float absorbtion;
 	int remainingBounces;
 
 	Collision();
