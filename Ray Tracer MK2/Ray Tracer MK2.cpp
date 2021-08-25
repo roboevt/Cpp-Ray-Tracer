@@ -16,6 +16,13 @@ using namespace std;
 
 //HWND consoleWindow = GetConsoleWindow();
 
+int width = 800;
+int height = 800;
+int frames = 100;
+int samples = 100;
+int bounceLimit = 3;
+float zoom = 2.1;
+
 int main()
 {   
     GLFWwindow* window;
@@ -25,7 +32,7 @@ int main()
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(width, height, "Ray Tracer", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -41,14 +48,6 @@ int main()
         
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
-        
-    
-        int width = 800;
-        int height = 800;
-        int frames = 100;
-        int samples = 1;
-        int bounceLimit = 3;
-        float zoom = 2.1;
 
         //HDC consoleDC = GetDC(consoleWindow);
         //auto memdc = CreateCompatibleDC(consoleDC);
@@ -97,10 +96,6 @@ int main()
         int frame = 0;
         for (int i = 0; i < frames; i++) {
             frame++;
-            //world.spheres.at(0).center.x = sin(frame / 10.0)/6.0;
-            //world.spheres.at(1).center.y = sin(frame / 15.0) / 6.0;
-            //world.spheres.at(0).center.z = cos(frame / 10.0) / .2 + 10;
-            //collision.point = origin;
         
             glClear(GL_COLOR_BUFFER_BIT);
             glBegin(GL_POINTS);
@@ -123,10 +118,13 @@ int main()
                     }
                     Color finalPixelColor = pixelColor.output();
                     glColor3ub(finalPixelColor.r, finalPixelColor.g, finalPixelColor.b);
-                    glVertex2f(static_cast<float>(x) / static_cast<float>(width), static_cast<float>(y) / static_cast<float>(height));
+                    float xOut = (static_cast<float>(x) / static_cast<float>(width)) * 2 - 1;
+                    float yOut = (static_cast<float>(y) / static_cast<float>(height)) * 2 - 1;
+                    glVertex2f(xOut, -yOut);
                     //SetPixel(consoleDC, x, y, RGB(pixelColor.output().r, pixelColor.output().g, pixelColor.output().b));
                 }
-                cout << y << '\n';
+                float percentage = (static_cast<float>(y) / static_cast<float>(height)) * 100;
+                cout << "\rRendering Progress: " << percentage;
             }
             glEnd();
             glfwSwapBuffers(window);
