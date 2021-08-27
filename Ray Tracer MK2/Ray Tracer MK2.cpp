@@ -16,12 +16,12 @@ using namespace std;
 
 //HWND consoleWindow = GetConsoleWindow();
 
-int width = 800;
-int height = 800;
+int width = 640;
+int height = 480;
 int frames = 100;
-int samples = 100;
+int samples = 10;
 int bounceLimit = 3;
-float zoom = 2.1;
+float zoom = 15;
 
 int main()
 {   
@@ -48,13 +48,6 @@ int main()
         
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
-
-        //HDC consoleDC = GetDC(consoleWindow);
-        //auto memdc = CreateCompatibleDC(consoleDC);
-        //auto hbitmap = CreateCompatibleBitmap(consoleDC, width, height);
-        //RECT r;
-        //GetWindowRect(consoleWindow, &r);
-        //MoveWindow(consoleWindow, r.left, r.top, 800, 800, TRUE);
 
         Vector sphere1Location = Vector(0, 0, 0);
         Color sphere1Color = Color(255, 255, 255);
@@ -85,7 +78,7 @@ int main()
         world.backgroundColor = Color(220, 240, 255);
 
         Camera camera = Camera();
-        camera.zoom = zoom;
+        camera.zoom = zoom * 100;
         camera.location = Vector(0, 0, -1);
 
         Vector origin = Vector(0, 0, 0);
@@ -102,8 +95,8 @@ int main()
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                 
-                    float xCam = (x - width / 2.0f) / width;
-                    float yCam = (-y + height / 2.0f) / height;
+                    float xCam = (x - width / 2.0f);
+                    float yCam = (-y + height / 2.0f);
                     collision.point = camera.location;
                     cameraRay = camera.generateRay(xCam, yCam);
                     collision.outVector = cameraRay.direction;

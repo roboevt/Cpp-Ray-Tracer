@@ -32,14 +32,13 @@ Color Color::output() {
 	int rOut = static_cast<float>(this->r) * scale;
 	int gOut = static_cast<float>(this->g) * scale;
 	int bOut = static_cast<float>(this->b) * scale;
-	if (rOut > 255) {
+	if (rOut > 255) 
 		rOut = 255;
-	}
-	if (gOut > 255) {
+
+	if (gOut > 255) 
 		gOut = 255;
-	}
-	if (bOut > 255) {
+
+	if (bOut > 255) 
 		bOut = 255;
-	}
 	return Color(rOut, gOut, bOut);
 }
