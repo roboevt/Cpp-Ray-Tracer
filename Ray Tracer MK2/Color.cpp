@@ -40,5 +40,8 @@ Color Color::output() {
 
 	if (bOut > 255) 
 		bOut = 255;
+	static_cast<uint8_t> (rOut);
+	static_cast<uint8_t> (gOut);
+	static_cast<uint8_t> (bOut);
 	return Color(rOut, gOut, bOut);
 }

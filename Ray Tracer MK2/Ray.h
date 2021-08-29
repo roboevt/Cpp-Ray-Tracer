@@ -12,6 +12,8 @@ public:
 
 	Ray(const Vector& origin,const Vector& direction);
 
+	Ray() {}
+
 	Vector at(float distance);
 };
 

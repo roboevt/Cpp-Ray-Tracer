@@ -5,6 +5,7 @@
 #include "Sphere.h"
 #include "Collision.h"
 #include "Ray.h"
+#include <thread>
 class World
 {
 public:
