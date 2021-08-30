@@ -22,16 +22,16 @@ GLFWwindow* window;
 const int width = 640;
 const int height = 480;
 int frames = 1000;
-int samples = 25;
+int samples = 10;
 int bounceLimit = 3;
-float zoom = 15;
-const int threadCount = 12;
+float zoom = 1500;
+const int threadCount = 4;
 bool rendering = true;
 bool drawing = false;
 bool running = true;
 bool threadDone[threadCount];
 
-void renderLine(int offset, Camera camera, World& world, unsigned char pixelArray[width][height][3]) {
+void renderLine(int offset, Camera& camera, World& world, unsigned char pixelArray[width][height][3]) {
 	srand(std::hash<std::thread::id>{}(std::this_thread::get_id()));  // Seperate threads need distinct random number generation
 	while (running) {
 		while (!rendering) {};
@@ -77,6 +77,44 @@ void drawArray(unsigned char pixelArray[width][height][3]) {
 	glfwPollEvents();
 }
 
+void updateCamera(Camera& camera) {
+	if (GetKeyState('W') & 0x8000) 
+		camera.location.z += .02;
+
+	if (GetKeyState('A') & 0x8000) 
+		camera.location.x += .02;
+
+	if (GetKeyState('S') & 0x8000) 
+		camera.location.z -= .02;
+
+	if (GetKeyState('D') & 0x8000) 
+		camera.location.x -= .02;
+
+	if (GetKeyState(VK_LSHIFT) & 0x8000)
+		camera.location.y += .02;
+
+	if (GetKeyState(VK_LCONTROL) & 0x8000)
+		camera.location.y -= .02;
+
+	if (GetKeyState('R') & 0x8000)
+		camera.zoom += 50;
+
+	if (GetKeyState('F') & 0x8000)
+		camera.zoom  -= 50;
+
+	if (GetKeyState(VK_LEFT) & 0x8000)  // Needs to be finished
+		camera.location.x -= .02;
+
+	if (GetKeyState(VK_RIGHT) & 0x8000)
+		camera.location.x -= .02;
+
+	if (GetKeyState(VK_UP) & 0x8000)
+		camera.location.x -= .02;
+
+	if (GetKeyState(VK_DOWN) & 0x8000)
+		camera.location.x -= .02;
+}
+
 int main()
 {
 	if (!glfwInit())
@@ -119,7 +157,7 @@ int main()
 		world.backgroundColor = Color(220, 240, 255);
 
 		Camera camera = Camera();
-		camera.zoom = zoom * 100;
+		camera.zoom = zoom;
 		camera.location = Vector(0, 0, -1);
 
 		Vector origin = Vector(0, 0, 0);
@@ -132,12 +170,13 @@ int main()
 		vector <thread> workers;
 
 		for (int w = 0; w < threadCount; w++) {
-			workers.push_back(thread(renderLine, w, camera, ref(world), pixelArray));
+			workers.push_back(thread(renderLine, w, ref(camera), ref(world), pixelArray));
 		}
+		chrono::steady_clock::time_point overallBegin = chrono::steady_clock::now();
 		for (int f = 0; f < frames; f++) {
 			chrono::steady_clock::time_point begin = chrono::steady_clock::now();
-			//cout << f << endl;
 
+			updateCamera(camera);
 			drawing = false;
 			rendering = true;
 			for (int w = 0; w < threadCount; w++) {
@@ -149,10 +188,14 @@ int main()
 			chrono::steady_clock::time_point renderEnd = chrono::steady_clock::now();
 			drawArray(pixelArray);
 			chrono::steady_clock::time_point totalEnd = chrono::steady_clock::now();
+
 			auto renderTime = chrono::duration_cast<chrono::microseconds>(renderEnd - begin).count();
 			auto totalTime = chrono::duration_cast<chrono::microseconds>(totalEnd - begin).count();
 			cout << "Render time: " << renderTime / 1000 << "ms\tFrame time: " << totalTime / 1000 << "ms" << endl;
 		}
+		chrono::steady_clock::time_point overallEnd = chrono::steady_clock::now();
+		auto overallTime = chrono::duration_cast<chrono::microseconds>(overallEnd - overallBegin).count();
+		cout << "Total time: " << overallTime / 1000 << "ms\tAverage frame time: " << overallTime / 1000 / frames << "ms";
 		running = false;
 		for (int w = 0; w < threadCount; w++) {
 			workers[w].join();
