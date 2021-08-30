@@ -6,6 +6,7 @@
 #include <vector>
 #include <thread>
 #include <stdint.h>
+#include <chrono>
 #include "Vector.h"
 #include "Ray.h"
 #include "Sphere.h"
@@ -20,8 +21,8 @@ GLFWwindow* window;
 
 const int width = 640;
 const int height = 480;
-int frames = 100;
-int samples = 10;
+int frames = 1000;
+int samples = 25;
 int bounceLimit = 3;
 float zoom = 15;
 const int threadCount = 12;
@@ -134,7 +135,8 @@ int main()
 			workers.push_back(thread(renderLine, w, camera, ref(world), pixelArray));
 		}
 		for (int f = 0; f < frames; f++) {
-			cout << f << endl;
+			chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+			//cout << f << endl;
 
 			drawing = false;
 			rendering = true;
@@ -144,7 +146,12 @@ int main()
 			}
 			rendering = false;
 			drawing = true;
+			chrono::steady_clock::time_point renderEnd = chrono::steady_clock::now();
 			drawArray(pixelArray);
+			chrono::steady_clock::time_point totalEnd = chrono::steady_clock::now();
+			auto renderTime = chrono::duration_cast<chrono::microseconds>(renderEnd - begin).count();
+			auto totalTime = chrono::duration_cast<chrono::microseconds>(totalEnd - begin).count();
+			cout << "Render time: " << renderTime / 1000 << "ms\tFrame time: " << totalTime / 1000 << "ms" << endl;
 		}
 		running = false;
 		for (int w = 0; w < threadCount; w++) {
