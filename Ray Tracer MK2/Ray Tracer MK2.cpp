@@ -24,28 +24,39 @@ int frames = 100;
 int samples = 10;
 int bounceLimit = 3;
 float zoom = 15;
-int threadCount = 1;
+const int threadCount = 12;
+bool rendering = true;
+bool drawing = false;
+bool running = true;
+bool threadDone[threadCount];
 
-void renderLine(int line, Camera camera, World& world, unsigned char pixelArray[width][height][3]) {
-	srand(std::hash<std::thread::id>{}(std::this_thread::get_id()));
-	int y = line;
-	Ray cameraRay;
-	for (int x = 0; x < width; x++) {
-		float xCam = (x - width / 2.0f);
-		float yCam = (-y + height / 2.0f);
-		cameraRay = camera.generateRay(xCam, yCam);
-		Color pixelColor = Color(0, 0, 0);
+void renderLine(int offset, Camera camera, World& world, unsigned char pixelArray[width][height][3]) {
+	srand(std::hash<std::thread::id>{}(std::this_thread::get_id()));  // Seperate threads need distinct random number generation
+	while (running) {
+		while (!rendering) {};
+		for (int i = offset; i < height; i += threadCount) {
+			int y = i;
+			Ray cameraRay;
+			for (int x = 0; x < width; x++) {
+				float xCam = (x - width / 2.0f);
+				float yCam = (-y + height / 2.0f);
+				cameraRay = camera.generateRay(xCam, yCam);
+				Color pixelColor = Color(0, 0, 0);
 
-		for (int s = 0; s < samples; s++) {
-			pixelColor = pixelColor + world.calcColor(cameraRay, bounceLimit + 1);
-			if (pixelColor.r == world.backgroundColor.r && pixelColor.g == world.backgroundColor.g && pixelColor.b == world.backgroundColor.b) {
-				break;
+				for (int s = 0; s < samples; s++) {
+					pixelColor = pixelColor + world.calcColor(cameraRay, bounceLimit + 1);
+					if (pixelColor.r == world.backgroundColor.r && pixelColor.g == world.backgroundColor.g && pixelColor.b == world.backgroundColor.b) {
+						break;
+					}
+				}
+				Color finalPixelColor = pixelColor.output();
+				pixelArray[x][y][0] = finalPixelColor.r;
+				pixelArray[x][y][1] = finalPixelColor.g;
+				pixelArray[x][y][2] = finalPixelColor.b;
 			}
 		}
-		Color finalPixelColor = pixelColor.output();
-		pixelArray[x][y][0] = finalPixelColor.r;
-		pixelArray[x][y][1] = finalPixelColor.g;
-		pixelArray[x][y][2] = finalPixelColor.b;
+		threadDone[offset] = true;
+		while (!drawing) {};
 	}
 }
 
@@ -117,15 +128,27 @@ int main()
 
 		auto pixelArray = new uint8_t [width][height][3];
 
-		int frame = 0;
+		vector <thread> workers;
+
+		for (int w = 0; w < threadCount; w++) {
+			workers.push_back(thread(renderLine, w, camera, ref(world), pixelArray));
+		}
 		for (int f = 0; f < frames; f++) {
-			frame++;
 			cout << f << endl;
-			for (int y = 0; y < height; y++) {
-				thread worker(renderLine, y, camera, ref(world), pixelArray);
-				worker.join();
+
+			drawing = false;
+			rendering = true;
+			for (int w = 0; w < threadCount; w++) {
+				while (!threadDone[w]) {};
+				threadDone[w] = false;
 			}
+			rendering = false;
+			drawing = true;
 			drawArray(pixelArray);
+		}
+		running = false;
+		for (int w = 0; w < threadCount; w++) {
+			workers[w].join();
 		}
 		delete[] pixelArray;
 
