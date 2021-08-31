@@ -10,7 +10,7 @@ class Camera
 {
 public:
 	Vector location;
-	float xAnlge;
+	float xAngle;
 	float yAngle;
 	float zAngle;
 	float zoom;

@@ -22,7 +22,7 @@ GLFWwindow* window;
 const int width = 640;
 const int height = 480;
 int frames = 1000;
-int samples = 10;
+int samples = 1;
 int bounceLimit = 3;
 float zoom = 1500;
 const int threadCount = 4;
@@ -103,16 +103,16 @@ void updateCamera(Camera& camera) {
 		camera.zoom  -= 50;
 
 	if (GetKeyState(VK_LEFT) & 0x8000)  // Needs to be finished
-		camera.location.x -= .02;
+		camera.yAngle -= 2;
 
 	if (GetKeyState(VK_RIGHT) & 0x8000)
-		camera.location.x -= .02;
+		camera.yAngle += 2;
 
 	if (GetKeyState(VK_UP) & 0x8000)
-		camera.location.x -= .02;
+		camera.xAngle -= 2;
 
 	if (GetKeyState(VK_DOWN) & 0x8000)
-		camera.location.x -= .02;
+		camera.xAngle += 2;
 }
 
 int main()

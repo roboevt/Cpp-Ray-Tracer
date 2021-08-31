@@ -2,7 +2,7 @@
 
 Camera::Camera() {
 	this->location = Vector(0, 0, 0);
-	this->xAnlge = 0;
+	this->xAngle = 0;
 	this->yAngle = 90;
 	this->zAngle = 0;
 	this->zoom = 2;
@@ -10,8 +10,8 @@ Camera::Camera() {
 
 Ray Camera::generateRay(float x, float y) {
 	float xRot = x;
-	float yRot = y * cos(this->toRadians(xAnlge)) - this->zoom * sin(toRadians(this->xAnlge));
-	float zRot = y * sin(toRadians(this->xAnlge)) + this->zoom * cos(toRadians(this->xAnlge));
+	float yRot = y * cos(this->toRadians(xAngle)) - this->zoom * sin(toRadians(this->xAngle));
+	float zRot = y * sin(toRadians(this->xAngle)) + this->zoom * cos(toRadians(this->xAngle));
 
 	float xRot1 = xRot * cos(toRadians(this->zAngle)) - yRot * sin(toRadians(this->zAngle));
 	float yRot1 = xRot * sin(toRadians(this->zAngle)) + yRot * cos(toRadians(this->zAngle));
