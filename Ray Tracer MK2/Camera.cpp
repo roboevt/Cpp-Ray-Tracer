@@ -6,6 +6,7 @@ Camera::Camera() {
 	this->yAngle = 90;
 	this->zAngle = 0;
 	this->zoom = 2;
+	this->speed = .002;
 }
 
 Ray Camera::generateRay(float x, float y) {
@@ -26,4 +27,49 @@ Ray Camera::generateRay(float x, float y) {
 
 float Camera::toRadians(float degrees) {
 	return degrees * M_PI / 180;
+}
+
+void Camera::moveCamera(long long timestep) {
+	float distance = this->speed * timestep;
+	if (GetKeyState('W') & 0x8000) {
+		this->location.z += (speed * this->location.y / 2) * sin(this->toRadians(yAngle)) * distance;
+		this->location.x += (speed * this->location.y / 2) * cos(this->toRadians(yAngle)) * distance;
+	}
+
+	if (GetKeyState('A') & 0x8000) {
+		this->location.z -= (speed * this->location.y / 2) * cos(this->toRadians(yAngle)) * distance;
+		this->location.x += (speed * this->location.y / 2) * sin(this->toRadians(yAngle)) * distance;
+	}
+	if (GetKeyState('S') & 0x8000) {
+		this->location.z -= (speed * this->location.y / 2) * sin(this->toRadians(yAngle)) * distance;
+		this->location.x -= (speed * this->location.y / 2) * cos(this->toRadians(yAngle)) * distance;
+	}
+	if (GetKeyState('D') & 0x8000) {
+		this->location.z += (speed * this->location.y / 2) * cos(this->toRadians(yAngle)) * distance;
+		this->location.x -= (speed * this->location.y / 2) * sin(this->toRadians(yAngle)) * distance;
+	}
+	if (GetKeyState(VK_LSHIFT) & 0x8000) {
+		this->location.y += distance*.0001;
+	}
+	if (GetKeyState(VK_LCONTROL) & 0x8000) {
+		this->location.y -= distance * .0001;
+	}
+	if (GetKeyState('R') & 0x8000) {
+		this->zoom += 50;
+	}
+	if (GetKeyState('F') & 0x8000) {
+		this->zoom -= 50;
+	}
+	if (GetKeyState(VK_LEFT) & 0x8000) {
+		this->yAngle -= .02f * distance;
+	}
+	if (GetKeyState(VK_RIGHT) & 0x8000) {
+		this->yAngle += .02f * distance;
+	}
+	if (GetKeyState(VK_UP) & 0x8000) {
+		this->xAngle -= .02f * distance;
+	}
+	if (GetKeyState(VK_DOWN) & 0x8000){
+		this->xAngle += .02f * distance;
+	}
 }

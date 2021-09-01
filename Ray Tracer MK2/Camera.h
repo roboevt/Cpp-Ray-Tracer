@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include "Ray.h"
 #include <cmath>
+#include <Windows.h>
 
 class Camera
 {
@@ -14,8 +15,10 @@ public:
 	float yAngle;
 	float zAngle;
 	float zoom;
+	float speed;
 	Camera();
 	Ray generateRay(float x, float y);
 	float toRadians(float degrees);
+	void moveCamera(long long timestep);
 };
 
