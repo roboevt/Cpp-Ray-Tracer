@@ -19,13 +19,13 @@ using namespace std;
 
 GLFWwindow* window;
 
-const int width = 640;
-const int height = 480;
+const int width = 1920;
+const int height = 1080;
 int frames = 1000000;
-int samples = 1;
+int samples = 32;
 int bounceLimit = 3;
 float zoom = 1500;
-const int threadCount = 8;
+const int threadCount = 10;
 bool rendering = true;
 bool drawing = false;
 bool running = true;
