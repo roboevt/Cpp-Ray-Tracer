@@ -53,11 +53,11 @@ Vector World::calcBounce(Collision& collision) {
 
 Vector World::randomInUnitSphere() {
 	Vector test = Vector(1, 1, 1);
-	while (test.magnitudeSquared() > 1.0) {
-		test.x = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
-		test.y = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
-		test.z = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
-		
+	while (test.magnitude() > 1.0) {
+		float x = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
+		float y = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
+		float z = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
+		test = Vector(_mm_setr_ps(x, y, z, 0.0f));
 	}
 	return test;
 }

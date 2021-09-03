@@ -31,6 +31,7 @@ float Camera::toRadians(float degrees) {
 
 void Camera::moveCamera(long long timestep) {
 	float distance = this->speed * timestep;
+	/*
 	if (GetKeyState('W') & 0x8000) {
 		this->location.z += (speed * this->location.y / 2) * sin(this->toRadians(yAngle)) * distance;
 		this->location.x += (speed * this->location.y / 2) * cos(this->toRadians(yAngle)) * distance;
@@ -54,11 +55,12 @@ void Camera::moveCamera(long long timestep) {
 	if (GetKeyState(VK_LCONTROL) & 0x8000) {
 		this->location.y -= distance * .0001;
 	}
+	*/
 	if (GetKeyState('R') & 0x8000) {
-		this->zoom += 50;
+		this->zoom += this->zoom * distance/1000;
 	}
 	if (GetKeyState('F') & 0x8000) {
-		this->zoom -= 50;
+		this->zoom -= this->zoom * distance/1000;
 	}
 	if (GetKeyState(VK_LEFT) & 0x8000) {
 		this->yAngle -= .02f * distance;

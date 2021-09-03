@@ -6,6 +6,8 @@
 #include "Collision.h"
 #include "Ray.h"
 #include <thread>
+#include <immintrin.h>
+
 class World
 {
 public:

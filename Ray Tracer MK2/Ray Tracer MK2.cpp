@@ -25,7 +25,7 @@ int frames = 1000000;
 int samples = 1;
 int bounceLimit = 3;
 float zoom = 1500;
-const int threadCount = 8;
+const int threadCount = 2;
 bool rendering = true;
 bool drawing = false;
 bool running = true;
@@ -117,6 +117,7 @@ void checkInput() {
 
 int main()
 {
+	
 	if (!glfwInit())
 		return -1;
 	window = glfwCreateWindow(width, height, "Ray Tracer", NULL, NULL);
@@ -133,9 +134,9 @@ int main()
 		Sphere sphere1 = Sphere(sphere1Location, .1, sphere1Color);
 		sphere1.shader = 1;
 		sphere1.absorbtion = .3;
-		Vector sphere2Location = Vector(0, -10, 0);
+		Vector sphere2Location = Vector(0, -100, 0);
 		Color sphere2Color = Color(255, 255, 255);
-		Sphere sphere2 = Sphere(sphere2Location, 10, sphere2Color);
+		Sphere sphere2 = Sphere(sphere2Location, 100, sphere2Color);
 		sphere2.shader = 1;
 		sphere2.absorbtion = .9;
 		Vector sphere3Location = Vector(.14, .1, 0);
