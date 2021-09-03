@@ -36,6 +36,14 @@ public:
 	float magnitude();
 
 	Vector normalized();
+
+	float getX();
+	float getY();
+	float getZ();
+
+	void setX(float x);  // Might not be optimal
+	void setY(float y);  // But shouldn't be called too much anyway
+	void setZ(float z);
 };
 
 #endif
