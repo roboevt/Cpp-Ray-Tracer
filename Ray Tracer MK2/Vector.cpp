@@ -5,9 +5,6 @@ using namespace std;
 #define ALL_MASK 0x77
 
 Vector::Vector(float x, float y, float z) {
-	//this->x = x;
-	//this->y = y;
-	//this->z = z;
 #ifdef USE_SIMD
 	this->sseVector = _mm_setr_ps(x, y, z, 0.0f);
 #else
@@ -25,8 +22,6 @@ Vector::Vector(__m128 inputVector) {
 #endif
 
 float Vector::dot(const Vector& other) {
-	//return this->x * other.x + this->y * other.y + this->z * other.z;
-	//return fma(this->x, other.x, fma(this->y, other.y, (this->z * other.z)));
 #ifdef USE_SIMD
 	return _mm_cvtss_f32(_mm_dp_ps(this->sseVector, other.sseVector, FIRST_MASK));
 #else 
@@ -35,7 +30,6 @@ float Vector::dot(const Vector& other) {
 }
 
 float Vector::magnitudeSquared() {
-	//return this->x * this->x + this->y * this->y + this->z * this->z;
 #ifdef USE_SIMD
 	return _mm_cvtss_f32(_mm_dp_ps(this->sseVector, this->sseVector, FIRST_MASK));
 #else
@@ -44,7 +38,6 @@ float Vector::magnitudeSquared() {
 }
 
 float Vector::magnitude() {
-	//return sqrt(this->magnitudeSquared());  // Seems to be slower
 #ifdef USE_SIMD
 	return _mm_cvtss_f32(_mm_sqrt_ss(_mm_dp_ps(this->sseVector, this->sseVector, FIRST_MASK)));
 #else
@@ -53,8 +46,6 @@ float Vector::magnitude() {
 }
 
 Vector Vector::normalized() {
-	//float magnitude = this->magnitude();
-	//return Vector(this->x / magnitude, this->y / magnitude, this->z / magnitude);
 #ifdef USE_SIMD
 	__m128 inverseSqrt = _mm_rsqrt_ps(_mm_dp_ps(this->sseVector, this->sseVector, ALL_MASK));
 	return Vector(_mm_mul_ps(this->sseVector, inverseSqrt));
@@ -65,7 +56,6 @@ Vector Vector::normalized() {
 }
 
 Vector Vector::operator+(const Vector& other) {
-	//return Vector(this->x + other.x, this->y + other.y, this->z + other.z);
 #ifdef USE_SIMD
 	return Vector(_mm_add_ps(this->sseVector, other.sseVector));
 #else
@@ -74,7 +64,6 @@ Vector Vector::operator+(const Vector& other) {
 }
 
 Vector Vector::operator-(const Vector& other) {
-	//return Vector(this->x - other.x, this->y - other.y, this->z - other.z);
 #ifdef USE_SIMD
 	return Vector(_mm_sub_ps(this->sseVector, other.sseVector));
 #else
@@ -83,7 +72,6 @@ Vector Vector::operator-(const Vector& other) {
 }
 
 Vector Vector::operator*(const float scale) {
-	//return Vector(this->x * scale, this->y * scale, this->z * scale);
 #ifdef USE_SIMD
 	return Vector(_mm_mul_ps(this->sseVector, _mm_set1_ps(scale)));
 #else
@@ -146,5 +134,13 @@ void Vector::setZ(float z) {
 	this->sseVector = _mm_setr_ps(x, y, z, 0.0f);
 #else
 	this->z = z;
+#endif
+}
+
+bool Vector::usingSimd() {
+#ifdef USE_SIMD
+	return true;
+#else
+	return false;
 #endif
 }

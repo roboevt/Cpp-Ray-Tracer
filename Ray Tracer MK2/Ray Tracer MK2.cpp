@@ -13,7 +13,6 @@
 #include "Collision.h"
 #include "Color.h"
 #include "Camera.h"
-
 #include "Vector.h"
 
 using namespace std;
@@ -118,7 +117,52 @@ void checkInput() {
 
 int main()
 {
-	
+	Vector sphere1Location = Vector(0, .1, 0);
+	Color sphere1Color = Color(255, 255, 255);
+	Sphere sphere1 = Sphere(sphere1Location, .1, sphere1Color);
+	sphere1.shader = 1;
+	sphere1.absorbtion = .3;
+	Vector sphere2Location = Vector(0, -100, 0);
+	Color sphere2Color = Color(255, 255, 255);
+	Sphere sphere2 = Sphere(sphere2Location, 100, sphere2Color);
+	sphere2.shader = 1;
+	sphere2.absorbtion = .9;
+	Vector sphere3Location = Vector(.14, .1, 0);
+	Color sphere3Color = Color(255, 255, 255);
+	Sphere sphere3 = Sphere(sphere3Location, .05, sphere3Color);
+	sphere3.shader = 1;
+	sphere3.absorbtion = .8;
+	Vector sphere4Location = Vector(-.14, .1, 0);
+	Color sphere4Color = Color(255, 255, 255);
+	Sphere sphere4 = Sphere(sphere4Location, .05, sphere4Color);
+	sphere4.shader = 3;
+	sphere4.absorbtion = .8;
+	vector <Sphere> spheres;
+	spheres.push_back(sphere1);
+	spheres.push_back(sphere2);
+	spheres.push_back(sphere3);
+	spheres.push_back(sphere4);
+	World world = World(spheres);
+	world.backgroundColor = Color(220, 240, 255);
+
+	Camera camera = Camera();
+	camera.zoom = zoom;
+	camera.location = Vector(0, .1, -1);
+
+	Vector origin = Vector(0, 0, 0);
+	Vector direction = Vector(0, 0, 0);
+	Ray cameraRay = Ray(origin, direction);
+	Collision collision;
+
+	auto pixelArray = new uint8_t[width][height][3];
+
+	vector <thread> workers;
+
+	long long renderTime = 0;
+	long long overallTime = 0;
+	long long totalTime = 0;
+
+	cout << "Using SIMD: "  << sphere1Location.usingSimd() << '\n';
 	if (!glfwInit())
 		return -1;
 	window = glfwCreateWindow(width, height, "Ray Tracer", NULL, NULL);
@@ -130,50 +174,6 @@ int main()
 	glfwMakeContextCurrent(window);
 	while (!glfwWindowShouldClose(window))
 	{
-		Vector sphere1Location = Vector(0, .1, 0);
-		Color sphere1Color = Color(255, 255, 255);
-		Sphere sphere1 = Sphere(sphere1Location, .1, sphere1Color);
-		sphere1.shader = 1;
-		sphere1.absorbtion = .3;
-		Vector sphere2Location = Vector(0, -100, 0);
-		Color sphere2Color = Color(255, 255, 255);
-		Sphere sphere2 = Sphere(sphere2Location, 100, sphere2Color);
-		sphere2.shader = 1;
-		sphere2.absorbtion = .9;
-		Vector sphere3Location = Vector(.14, .1, 0);
-		Color sphere3Color = Color(255, 255, 255);
-		Sphere sphere3 = Sphere(sphere3Location, .05, sphere3Color);
-		sphere3.shader = 1;
-		sphere3.absorbtion = .8;
-		Vector sphere4Location = Vector(-.14, .1, 0);
-		Color sphere4Color = Color(255, 255, 255);
-		Sphere sphere4 = Sphere(sphere4Location, .05, sphere4Color);
-		sphere4.shader = 3;
-		sphere4.absorbtion = .8;
-		vector <Sphere> spheres;
-		spheres.push_back(sphere1);
-		spheres.push_back(sphere2);
-		spheres.push_back(sphere3);
-		spheres.push_back(sphere4);
-		World world = World(spheres);
-		world.backgroundColor = Color(220, 240, 255);
-
-		Camera camera = Camera();
-		camera.zoom = zoom;
-		camera.location = Vector(0, .1, -1);
-
-		Vector origin = Vector(0, 0, 0);
-		Vector direction = Vector(0, 0, 0);
-		Ray cameraRay = Ray(origin, direction);
-		Collision collision;
-
-		auto pixelArray = new uint8_t [width][height][3];
-
-		vector <thread> workers;
-
-		long long renderTime = 0;
-		long long overallTime = 0;
-		long long totalTime = 0;
 
 		for (int w = 0; w < threadCount; ++w) {
 			workers.push_back(thread(renderLine, w, ref(camera), ref(world), pixelArray));

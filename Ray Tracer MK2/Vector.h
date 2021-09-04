@@ -15,9 +15,7 @@ class Vector
 {
 public:
 #ifdef USE_SIMD:
-	//float x;
-	//float y;
-	//float z;
+
 	__m128 sseVector;
 #else
 	float x, y, z;
@@ -45,6 +43,8 @@ public:
 	void setX(float x);  // Might not be optimal
 	void setY(float y);  // But shouldn't be called too much anyway
 	void setZ(float z);
+
+	static bool usingSimd();
 
 	Vector() = default;
 };
