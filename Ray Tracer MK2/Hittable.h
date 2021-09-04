@@ -2,8 +2,8 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
-#include "Vector.h"
 #include "Color.h"
+#include "Vector.h"
 
 class Hittable
 {

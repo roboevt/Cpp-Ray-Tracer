@@ -57,7 +57,7 @@ Vector World::randomInUnitSphere() {
 		float x = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
 		float y = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
 		float z = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
-		test = Vector(_mm_setr_ps(x, y, z, 0.0f));
+		test = Vector(x, y, z);
 	}
 	return test;
 }

@@ -7,7 +7,6 @@
 #include <thread>
 #include <stdint.h>
 #include <chrono>
-#include "Vector.h"
 #include "Ray.h"
 #include "Sphere.h"
 #include "World.h"
@@ -15,14 +14,16 @@
 #include "Color.h"
 #include "Camera.h"
 
+#include "Vector.h"
+
 using namespace std;
 
 GLFWwindow* window;
 
-const int width = 1920;
-const int height = 1080;
+const int width = 1280;
+const int height = 720;
 int frames = 1000000;
-int samples = 32;
+int samples = 4;
 int bounceLimit = 3;
 float zoom = 1500;
 const int threadCount = 10;

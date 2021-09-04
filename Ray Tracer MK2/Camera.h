@@ -2,10 +2,11 @@
 
 #define _USE_MATH_DEFINES
 
-#include "Vector.h"
 #include "Ray.h"
 #include <cmath>
 #include <Windows.h>
+
+#include "Vector.h"
 
 class Camera
 {

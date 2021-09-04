@@ -1,9 +1,11 @@
 #pragma once
 #ifndef SPHERE_H
 #define SPHERE_H
-#include "Vector.h"
 #include "Ray.h"
 #include "Hittable.h"
+
+#include "Vector.h"
+
 
 class Sphere : public Hittable
 {

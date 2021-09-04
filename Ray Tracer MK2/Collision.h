@@ -2,10 +2,11 @@
 #ifndef COLLISION_H
 #define COLLISION_H
 
-#include "Vector.h"
 #include "Ray.h"
 #include "Hittable.h"
 #include "Color.h"
+
+#include "Vector.h"
 
 class Collision
 {
