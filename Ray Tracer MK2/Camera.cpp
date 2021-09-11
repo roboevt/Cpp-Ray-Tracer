@@ -6,7 +6,7 @@ Camera::Camera() {
 	this->yAngle = 90;
 	this->zAngle = 0;
 	this->zoom = 2;
-	this->speed = .002;
+	this->speed = .002f;
 }
 
 Ray Camera::generateRay(float x, float y) {
@@ -26,7 +26,7 @@ Ray Camera::generateRay(float x, float y) {
 }
 
 float Camera::toRadians(float degrees) {
-	return degrees * M_PI / 180;
+	return degrees * M_PI / 180.0f;
 }
 
 void Camera::moveCamera(long long timestep) {
@@ -50,10 +50,10 @@ void Camera::moveCamera(long long timestep) {
 		this->location.setX(this->location.getX() - (speed * this->location.getY() / 2) * sin(this->toRadians(yAngle)) * distance);
 	}
 	if (GetKeyState(VK_LSHIFT) & 0x8000) {
-		this->location.setY(this->location.getY() + distance * .0001);
+		this->location.setY(this->location.getY() + distance * .0001f);
 	}
 	if (GetKeyState(VK_LCONTROL) & 0x8000) {
-		this->location.setY(this->location.getY() - distance * .0001);
+		this->location.setY(this->location.getY() - distance * .0001f);
 	}
 
 	if (GetKeyState('R') & 0x8000) {

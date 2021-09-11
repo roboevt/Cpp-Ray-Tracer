@@ -55,9 +55,9 @@ Vector World::calcBounce(Collision& collision) {
 Vector World::randomInUnitSphere() {
 	Vector test = Vector(1, 1, 1);
 	while (test.magnitude() > 1.0) {
-		float x = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
-		float y = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
-		float z = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0 - 1.0;
+		float x = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0f - 1.0f;
+		float y = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0f - 1.0f;
+		float z = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0f - 1.0f;
 		test = Vector(x, y, z);
 	}
 	return test;

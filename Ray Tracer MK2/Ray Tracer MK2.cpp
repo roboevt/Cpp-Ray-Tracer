@@ -117,9 +117,9 @@ void checkInput() {
 
 int main()
 {
-	Vector sphere1Location = Vector(0, .1, 0);
+	Vector sphere1Location = Vector(0, .1f, 0);
 	Color sphere1Color = Color(255, 255, 255);
-	Sphere sphere1 = Sphere(sphere1Location, .1, sphere1Color);
+	Sphere sphere1 = Sphere(sphere1Location, .1f, sphere1Color);
 	sphere1.shader = 1;
 	sphere1.absorbtion = .3;
 	Vector sphere2Location = Vector(0, -100, 0);
@@ -127,16 +127,16 @@ int main()
 	Sphere sphere2 = Sphere(sphere2Location, 100, sphere2Color);
 	sphere2.shader = 1;
 	sphere2.absorbtion = .9;
-	Vector sphere3Location = Vector(.14, .1, 0);
+	Vector sphere3Location = Vector(.14f, .1f, 0);
 	Color sphere3Color = Color(255, 255, 255);
-	Sphere sphere3 = Sphere(sphere3Location, .05, sphere3Color);
+	Sphere sphere3 = Sphere(sphere3Location, .05f, sphere3Color);
 	sphere3.shader = 1;
-	sphere3.absorbtion = .8;
-	Vector sphere4Location = Vector(-.14, .1, 0);
+	sphere3.absorbtion = .8f;
+	Vector sphere4Location = Vector(-.14f, .1f, 0);
 	Color sphere4Color = Color(255, 255, 255);
-	Sphere sphere4 = Sphere(sphere4Location, .05, sphere4Color);
+	Sphere sphere4 = Sphere(sphere4Location, .05f, sphere4Color);
 	sphere4.shader = 2;
-	sphere4.absorbtion = .8;
+	sphere4.absorbtion = .8f;
 	sphere1.color = Color(255, 0, 0);
 	sphere3.color = Color(0, 255, 255);
 	vector <Sphere> spheres;

@@ -20,18 +20,18 @@ Color Color::operator+(Color other) {
 }
 
 Color Color::operator*(float scale) {
-	int rOut = static_cast<float>(this->r) * scale;
-	int gOut = static_cast<float>(this->g) * scale;
-	int bOut = static_cast<float>(this->b) * scale;
+	int rOut = static_cast<int>(static_cast<float>(this->r) * scale);
+	int gOut = static_cast<int>(static_cast<float>(this->g) * scale);
+	int bOut = static_cast<int>(static_cast<float>(this->b) * scale);
 	return Color(rOut, gOut, bOut, this->samples);
 }
 
 Color Color::output() {
 	//std::cout << this->samples << "  ";
 	float scale = 1 / static_cast<float>(this->samples);
-	int rOut = static_cast<float>(this->r) * scale;
-	int gOut = static_cast<float>(this->g) * scale;
-	int bOut = static_cast<float>(this->b) * scale;
+	int rOut = static_cast<int>(static_cast<float>(this->r) * scale);
+	int gOut = static_cast<int>(static_cast<float>(this->g) * scale);
+	int bOut = static_cast<int>(static_cast<float>(this->b) * scale);
 	if (rOut > 255) 
 		rOut = 255;
 
