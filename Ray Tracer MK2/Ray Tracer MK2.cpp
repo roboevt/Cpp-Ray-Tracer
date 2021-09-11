@@ -19,13 +19,13 @@ using namespace std;
 
 GLFWwindow* window;
 
-const int width = 1280;
-const int height = 720;
+const int width = 640;
+const int height = 480;
 int frames = 1000000;
-int samples = 4;
+int samples = 1;
 int bounceLimit = 3;
 float zoom = 1500;
-const int threadCount = 10;
+const int threadCount = 8;
 bool rendering = true;
 bool drawing = false;
 bool running = true;
@@ -135,8 +135,10 @@ int main()
 	Vector sphere4Location = Vector(-.14, .1, 0);
 	Color sphere4Color = Color(255, 255, 255);
 	Sphere sphere4 = Sphere(sphere4Location, .05, sphere4Color);
-	sphere4.shader = 3;
+	sphere4.shader = 2;
 	sphere4.absorbtion = .8;
+	sphere1.color = Color(255, 0, 0);
+	sphere3.color = Color(0, 255, 255);
 	vector <Sphere> spheres;
 	spheres.push_back(sphere1);
 	spheres.push_back(sphere2);
@@ -153,7 +155,6 @@ int main()
 	Vector direction = Vector(0, 0, 0);
 	Ray cameraRay = Ray(origin, direction);
 	Collision collision;
-
 	auto pixelArray = new uint8_t[width][height][3];
 
 	vector <thread> workers;
@@ -210,4 +211,6 @@ int main()
 		glfwTerminate();
 		return 0;
 	}
+	int x = 10;
+	int* px = &x;
 }

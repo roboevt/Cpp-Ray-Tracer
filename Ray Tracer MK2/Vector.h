@@ -15,7 +15,6 @@ class Vector
 {
 public:
 #ifdef USE_SIMD:
-
 	__m128 sseVector;
 #else
 	float x, y, z;

@@ -4,22 +4,23 @@ World::World(vector <Sphere> spheres) {
 	this->spheres = spheres;
 }
 
-Color World::calcColor(Ray ray, int remainingBounces) {
+Color World::calcColor(Ray& ray, int remainingBounces) {
 	if (remainingBounces == 0) { // no bounces left (base case)
 		return Color(0, 0, 0);
 	}
 	Collision collision;
+	collision.outVector = ray.direction;
 	if (hit(ray, collision)) {
 		if (collision.hitObject.shader == 3) {
 			return Color(1000,1000,1000);
 		}
 		Ray nextRay = Ray(collision.point, collision.outVector);
-		return calcColor(nextRay, remainingBounces - 1) * collision.absorbtion;
+		return collision.hitObject.color + calcColor(nextRay, remainingBounces - 1) * collision.absorbtion;
 	}
 	return this->backgroundColor;
 }
 
-bool World::hit(Ray ray, Collision& collision) {
+bool World::hit(Ray& ray, Collision& collision) {
 	float closest = std::numeric_limits<float>::max();
 	bool hitAnything = false;
 	for (Sphere& sphere : this->spheres) {
@@ -46,7 +47,7 @@ Vector World::calcBounce(Collision& collision) {
 	}
 	if (collision.hitObject.shader == 2) {  // reflective
 		collision.absorbtion = 1;
-		return Vector(0, 0, 0) - ((collision.normal * collision.inVector.dot(collision.normal)) * 2) - collision.inVector;
+		return collision.inVector - (collision.normal * 2 * collision.inVector.dot(collision.normal));
 	}
 	return Vector(0, 0, 1);
 }

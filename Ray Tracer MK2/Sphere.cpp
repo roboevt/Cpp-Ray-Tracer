@@ -22,7 +22,6 @@ float Sphere::distanceAlongRay(Ray& ray) {
 		return root1;
 	}
 	return root2;
-	
 }
 
 Vector Sphere::calculateNormal(Vector& point) {
