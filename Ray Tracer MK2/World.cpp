@@ -54,11 +54,11 @@ Vector World::calcBounce(Collision& collision) {
 
 Vector World::randomInUnitSphere() {
 	Vector test = Vector(1, 1, 1);
-	while (test.magnitude() > 1.0) {
+	//while (test.magnitudeSquared() > 1.0) {  // Making sure the vector is in the unit sphere is techincally correct but adds around 20-30% to frame times.
 		float x = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0f - 1.0f;
 		float y = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0f - 1.0f;
 		float z = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0f - 1.0f;
 		test = Vector(x, y, z);
-	}
-	return test;
+	//}
+	return test.normalized();
 }

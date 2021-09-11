@@ -1,7 +1,7 @@
 #include "Color.h"
 #include <iostream>
 
-Color::Color(int r, int g, int b, int samples) {
+Color::Color(unsigned int r, unsigned int g, unsigned int b, unsigned int samples) {
 	this->r = r;
 	this->g = g;
 	this->b = b;
@@ -27,7 +27,6 @@ Color Color::operator*(float scale) {
 }
 
 Color Color::output() {
-	//std::cout << this->samples << "  ";
 	float scale = 1 / static_cast<float>(this->samples);
 	int rOut = static_cast<int>(static_cast<float>(this->r) * scale);
 	int gOut = static_cast<int>(static_cast<float>(this->g) * scale);

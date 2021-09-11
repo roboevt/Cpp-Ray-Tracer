@@ -24,8 +24,11 @@ public:
 	Vector(__m128);
 
 	Vector operator+(const Vector& other);
+	void operator+=(const Vector& other);
 	Vector operator-(const Vector& other);
+	void operator-=(const Vector& other);
 	Vector operator*(const float scale);
+	float operator*(const Vector& other);
 
 	float dot(const Vector& other);
 

@@ -63,11 +63,31 @@ Vector Vector::operator+(const Vector& other) {
 #endif
 }
 
+void Vector::operator+=(const Vector& other) {
+#ifdef USE_SIMD
+	this->sseVector = _mm_add_ps(this->sseVector, other.sseVector);
+#else
+	this.x += other.x;
+	this.y += other.y;
+	this.z += other.z;
+#endif
+}
+
 Vector Vector::operator-(const Vector& other) {
 #ifdef USE_SIMD
 	return Vector(_mm_sub_ps(this->sseVector, other.sseVector));
 #else
 	return Vector(this->x - other.x, this->y - other.y, this->z - other.z);
+#endif
+}
+
+void Vector::operator-=(const Vector& other) {
+#ifdef USE_SIMD
+	this->sseVector = _mm_sub_ps(this->sseVector, other.sseVector);
+#else
+	this.x -= other.x;
+	this.y -= other.y;
+	this.z -= other.z;
 #endif
 }
 
@@ -77,6 +97,10 @@ Vector Vector::operator*(const float scale) {
 #else
 	return Vector(this->x * scale, this->y * scale, this->z * scale);
 #endif
+}
+
+float Vector::operator*(const Vector& other) {
+	return dot(other);
 }
 
 float Vector::getX() {

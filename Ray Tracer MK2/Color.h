@@ -5,9 +5,9 @@
 class Color
 {
 public:
-	int r, g, b, samples;
+	unsigned int r, g, b, samples;
 
-	Color(int r, int g, int b, int sampels = 0);
+	Color(unsigned int r, unsigned int g, unsigned int b, unsigned int sampels = 0);
 	Color();
 
 	Color operator+(Color other);
