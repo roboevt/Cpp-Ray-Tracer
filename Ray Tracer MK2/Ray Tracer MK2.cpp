@@ -14,6 +14,7 @@
 #include "Color.h"
 #include "Camera.h"
 #include "Vector.h"
+#include "Material.h"
 
 using namespace std;
 
@@ -118,25 +119,28 @@ void checkInput() {
 int main()
 {
 	Vector sphere1Location = Vector(0, .1f, 0);
-	Color sphere1Color = Color(255, 255, 255);
-	Sphere sphere1 = Sphere(sphere1Location, .1f, sphere1Color);
-	sphere1.shader = 2;
-	sphere1.absorbtion = .3;
+	Material sphere1Material = Material();
+	Sphere sphere1 = Sphere(sphere1Location, .1f, sphere1Material);
+	sphere1.material.shader = reflective;
+	sphere1.material.absorbtion = .3;
 	Vector sphere2Location = Vector(0, -100, 0);
-	Color sphere2Color = Color(255, 255, 0);
-	Sphere sphere2 = Sphere(sphere2Location, 100, sphere2Color);
-	sphere2.shader = 1;
-	sphere2.absorbtion = .9;
+	Material sphere2Material = Material();
+	sphere2Material.color = Color(255, 255, 0);
+	Sphere sphere2 = Sphere(sphere2Location, 100, sphere2Material);
+	sphere2.material.shader = diffuse;
+	sphere2.material.absorbtion = .9;
 	Vector sphere3Location = Vector(.14f, .1f, 0);
-	Color sphere3Color = Color(0, 255, 255);
-	Sphere sphere3 = Sphere(sphere3Location, .05f, sphere3Color);
-	sphere3.shader = 1;
-	sphere3.absorbtion = .8f;
+	Material sphere3Material = Material();
+	sphere3Material.color = Color(0, 255, 255);
+	Sphere sphere3 = Sphere(sphere3Location, .05f, sphere3Material);
+	sphere3.material.shader = diffuse;
+	sphere3.material.absorbtion = .8f;
 	Vector sphere4Location = Vector(-.14f, .1f, 0);
-	Color sphere4Color = Color(255, 0, 0);
-	Sphere sphere4 = Sphere(sphere4Location, .05f, sphere4Color);
-	sphere4.shader = 1;
-	sphere4.absorbtion = .8f;
+	Material sphere4Material = Material();
+	sphere4Material.color = Color(255, 0, 0);
+	Sphere sphere4 = Sphere(sphere4Location, .05f, sphere4Material);
+	sphere4.material.shader = diffuse;
+	sphere4.material.absorbtion = .8f;
 	vector <Sphere> spheres;
 	spheres.push_back(sphere1);
 	spheres.push_back(sphere2);

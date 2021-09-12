@@ -27,8 +27,8 @@ public:
 	void operator+=(const Vector& other);
 	Vector operator-(const Vector& other);
 	void operator-=(const Vector& other);
-	Vector operator*(const float scale);
-	float operator*(const Vector& other);
+	Vector operator*(const float scale);   // multiple vector by scalar
+	float operator*(const Vector& other);  // dot product
 
 	float dot(const Vector& other);
 
@@ -38,12 +38,12 @@ public:
 
 	Vector normalized();
 
-	float getX();
-	float getY();
-	float getZ();
+	float getX(); // This one is fine
+	float getY(); // These might not be optimal in SIMD
+	float getZ(); // But shouldn't be called too much anyway
 
-	void setX(float x);  // Might not be optimal
-	void setY(float y);  // But shouldn't be called too much anyway
+	void setX(float x);  // These are also also a bit slow in SIMD
+	void setY(float y);  // And also shouldn't be neccesary too often
 	void setZ(float z);
 
 	static bool usingSimd();

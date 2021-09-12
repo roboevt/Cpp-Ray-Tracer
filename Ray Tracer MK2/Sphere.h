@@ -11,7 +11,7 @@ class Sphere : public Hittable
 {
 public:
 
-	Sphere(Vector& center, float radius, Color& color);
+	Sphere(Vector& center, float radius, Material& material);
 	
 	float distanceAlongRay(Ray& ray);
 

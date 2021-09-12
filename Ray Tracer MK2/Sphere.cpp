@@ -1,9 +1,9 @@
 #include "Sphere.h"
 
-Sphere::Sphere(Vector& center, float radius, Color& color) {
+Sphere::Sphere(Vector& center, float radius, Material& material) {
 	this->center = center;
 	this->radius = radius;
-	this->color = color;
+	this->material = material;
 }
 
 float Sphere::distanceAlongRay(Ray& ray) {

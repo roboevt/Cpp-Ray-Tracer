@@ -4,17 +4,16 @@
 
 #include "Color.h"
 #include "Vector.h"
+#include "Material.h"
 
 class Hittable
 {
 public:
 	Vector center;
 	float radius;
-	Color color;
-	int shader;
-	float absorbtion;
+	Material material;
 
-	Vector calculateNormal(Vector& point);
+	virtual Vector calculateNormal(Vector& point);
 };
 
 #endif

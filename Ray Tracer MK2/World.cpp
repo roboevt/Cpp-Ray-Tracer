@@ -11,11 +11,11 @@ Color World::calcColor(Ray& ray, int remainingBounces) {
 	Collision collision;
 	collision.outVector = ray.direction;
 	if (hit(ray, collision)) {
-		if (collision.hitObject.shader == 3) {
+		if (collision.hitObject.material.shader == emmisive) {
 			return Color(1000,1000,1000);
 		}
 		Ray nextRay = Ray(collision.point, collision.outVector);
-		return collision.hitObject.color + calcColor(nextRay, remainingBounces - 1) * collision.absorbtion;
+		return collision.hitObject.material.color + calcColor(nextRay, remainingBounces - 1) * collision.absorbtion;
 	}
 	return this->backgroundColor;
 }
@@ -41,11 +41,11 @@ bool World::hit(Ray& ray, Collision& collision) {
 }
 
 Vector World::calcBounce(Collision& collision) {
-	if (collision.hitObject.shader == 1) {  // diffuse
-		collision.absorbtion = collision.hitObject.absorbtion;
+	if (collision.hitObject.material.shader == diffuse) {
+		collision.absorbtion = collision.hitObject.material.absorbtion;
 		return (collision.normal + randomInUnitSphere()).normalized();
 	}
-	if (collision.hitObject.shader == 2) {  // reflective
+	if (collision.hitObject.material.shader == reflective) {
 		collision.absorbtion = 1;
 		return collision.inVector - (collision.normal * 2 * collision.inVector.dot(collision.normal));
 	}
