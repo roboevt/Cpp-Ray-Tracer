@@ -9,8 +9,6 @@
 
 #define USE_SIMD
 
-using namespace std;
-
 class Vector
 {
 public:

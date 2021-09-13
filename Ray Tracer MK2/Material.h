@@ -11,4 +11,3 @@ public:
 	Color color;
 	Material();
 };
-

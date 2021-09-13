@@ -1,6 +1,6 @@
 #include "World.h"
 
-World::World(vector <Sphere> spheres) {
+World::World(std::vector <Sphere> spheres) {
 	this->spheres = spheres;
 }
 
@@ -12,10 +12,14 @@ Color World::calcColor(Ray& ray, int remainingBounces) {
 	collision.outVector = ray.direction;
 	if (hit(ray, collision)) {
 		if (collision.hitObject.material.shader == emmisive) {
-			return Color(1000,1000,1000);
+			return collision.hitObject.material.color;
 		}
+		collision.normal = (collision.point - collision.hitObject.center).normalized();  // should probably be normalized
+		collision.inVector = collision.outVector;
+		collision.outVector = calcBounce(collision);
 		Ray nextRay = Ray(collision.point, collision.outVector);
-		return collision.hitObject.material.color + calcColor(nextRay, remainingBounces - 1) * collision.absorbtion;
+		Color rayColor = calcColor(nextRay, remainingBounces - 1);
+		return collision.hitObject.material.color + calcColor(nextRay, remainingBounces - 1) * collision.absorbtion;  // This is wrong because of the +. It will always return the objects color, even if there is no light.
 	}
 	return this->backgroundColor;
 }
@@ -31,11 +35,6 @@ bool World::hit(Ray& ray, Collision& collision) {
 			collision.hitObject = sphere;
 			collision.point = ray.at(distance);
 		}
-	}
-	if (hitAnything) {
-		collision.normal = (collision.point - collision.hitObject.center).normalized();  // should probably be normalized
-		collision.inVector = collision.outVector;
-		collision.outVector = calcBounce(collision);
 	}
 	return hitAnything;
 }

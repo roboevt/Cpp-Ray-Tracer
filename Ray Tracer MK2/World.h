@@ -11,10 +11,10 @@
 class World
 {
 public:
-	vector <Sphere> spheres;
+	std::vector <Sphere> spheres;
 	Color backgroundColor;
 
-	World(vector <Sphere> spheres);
+	World(std::vector <Sphere> spheres);
 
 	Color calcColor(Ray& ray, int remainingBounces);
 
