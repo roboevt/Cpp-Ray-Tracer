@@ -9,6 +9,9 @@
 #include <chrono>
 #include <mutex>
 #include <future>
+#include <algorithm>
+#include <execution>
+
 #include "Ray.h"
 #include "Sphere.h"
 #include "World.h"
@@ -17,23 +20,24 @@
 #include "Camera.h"
 #include "Vector.h"
 #include "Material.h"
+#include "Image.h"
 
 //using namespace std;
 
 GLFWwindow* window;
 
-const int width = 1920;
-const int height = 1080;
+const int width = 1280;
+const int height = 720;
 int frames = 1000000;
-int samples = 1;
+int samples = 5;
 int bounceLimit = 3;
 float zoom = 1500;
-const int threadCount = 6;
+const int threadCount = 12;
 bool plusOrMinusPressed = false;
 bool samplesPressed = false;
 
 
-void renderLine(int offset, Camera* camera, World* world, uint8_t pixelArray[width][height][3]) {
+void renderLine(int offset, const Camera* camera, const World* world, uint8_t pixelArray[width][height][3]) {
 	srand(std::hash<std::thread::id>{}(std::this_thread::get_id()));  // Seperate threads need distinct random number generation
 	int y;
 	Ray cameraRay;
@@ -188,12 +192,24 @@ int main()
 
 			camera.moveCamera(totalTime);
 			checkInput();
-			for (int w = 0; w < threadCount; w++) {
+			/*for (int w = 0; w < threadCount; w++) {
 				workers.push_back(std::async(std::launch::async, renderLine, w, &camera, &world, pixelArray));
 			}
 			for (int w = 0; w < threadCount; w++) {
 				workers[w].wait();
 			}
+			for (int i = 0; i < threadCount; i++) {
+				renderLine(i, &camera, &world, pixelArray);
+			}*/
+			std::vector<int> offsets;
+			for (int i = 0; i < threadCount; i++) {
+				offsets.push_back(i);
+			}
+
+			std::for_each(std::execution::par, std::begin(offsets), std::end(offsets), [camera, world, pixelArray](int i) {
+				renderLine(i, &camera, &world, pixelArray);
+			});
+
 			drawArray(pixelArray);  // Takes 5 ms because of vsync/gsync.
 			std::chrono::steady_clock::time_point totalEnd = std::chrono::steady_clock::now();
 

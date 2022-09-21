@@ -16,13 +16,13 @@ public:
 
 	World(std::vector <Sphere> spheres);
 
-	Color calcColor(Ray& ray, int remainingBounces);
+	Color calcColor(Ray& ray, int remainingBounces) const;
 
-	bool hit(Ray& ray, Collision& collision);
+	bool hit(Ray& ray, Collision& collision) const;
 
-	Vector calcBounce (Collision& collision);
+	Vector calcBounce (Collision& collision) const;
 
-	Vector randomInUnitSphere();
+	Vector randomInUnitSphere() const;
 };
 
 #endif

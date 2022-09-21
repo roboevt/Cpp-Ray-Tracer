@@ -4,7 +4,7 @@ World::World(std::vector <Sphere> spheres) {
 	this->spheres = spheres;
 }
 
-Color World::calcColor(Ray& ray, int remainingBounces) {
+Color World::calcColor(Ray& ray, int remainingBounces) const {
 	if (remainingBounces == 0) { // no bounces left (base case)
 		return Color(0, 0, 0);
 	}
@@ -24,10 +24,10 @@ Color World::calcColor(Ray& ray, int remainingBounces) {
 	return this->backgroundColor;
 }
 
-bool World::hit(Ray& ray, Collision& collision) {
+bool World::hit(Ray& ray, Collision& collision) const {
 	float closest = std::numeric_limits<float>::max();
 	bool hitAnything = false;
-	for (Sphere& sphere : this->spheres) {
+	for (const Sphere& sphere : this->spheres) {
 		float distance = sphere.distanceAlongRay(ray);
 		if (distance > 0 && distance < closest) {
 			hitAnything = true;
@@ -39,7 +39,7 @@ bool World::hit(Ray& ray, Collision& collision) {
 	return hitAnything;
 }
 
-Vector World::calcBounce(Collision& collision) {
+Vector World::calcBounce(Collision& collision) const {
 	if (collision.hitObject.material.shader == diffuse) {
 		collision.absorbtion = collision.hitObject.material.absorbtion;
 		return (collision.normal + randomInUnitSphere()).normalized();
@@ -51,7 +51,7 @@ Vector World::calcBounce(Collision& collision) {
 	return Vector(0, 0, 1);
 }
 
-Vector World::randomInUnitSphere() {
+Vector World::randomInUnitSphere() const {
 	Vector test = Vector(1, 1, 1);
 	//while (test.magnitudeSquared() > 1.0) {  // Making sure the vector is in the unit sphere is techincally correct but adds around 20-30% to frame times.
 		float x = (static_cast <float> (rand()) / static_cast <float> (RAND_MAX)) * 2.0f - 1.0f;

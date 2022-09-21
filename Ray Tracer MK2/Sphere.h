@@ -13,9 +13,9 @@ public:
 
 	Sphere(Vector& center, float radius, Material& material);
 	
-	float distanceAlongRay(Ray& ray);
+	float distanceAlongRay(Ray& ray) const;
 
-	Vector calculateNormal(Vector& point);
+	Vector calculateNormal(Vector& point) const;
 };
 
 #endif

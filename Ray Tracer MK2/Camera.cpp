@@ -9,7 +9,7 @@ Camera::Camera() {
 	this->speed = .002f;
 }
 
-Ray Camera::generateRay(float x, float y) {
+Ray Camera::generateRay(float x, float y) const {
 	float xRot = x;
 	float yRot = y * cos(this->toRadians(xAngle)) - this->zoom * sin(toRadians(this->xAngle));
 	float zRot = y * sin(toRadians(this->xAngle)) + this->zoom * cos(toRadians(this->xAngle));
@@ -25,7 +25,7 @@ Ray Camera::generateRay(float x, float y) {
 	return Ray(this->location, Vector(xRot2, yRot2, zRot2).normalized());
 }
 
-float Camera::toRadians(float degrees) {
+float Camera::toRadians(float degrees) const {
 	return degrees * M_PI / 180.0f;
 }
 

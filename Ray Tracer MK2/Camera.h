@@ -18,8 +18,8 @@ public:
 	float zoom;
 	float speed;
 	Camera();
-	Ray generateRay(float x, float y);
-	float toRadians(float degrees);
+	Ray generateRay(float x, float y) const;
+	float toRadians(float degrees) const;
 	void moveCamera(long long timestep);
 };
 

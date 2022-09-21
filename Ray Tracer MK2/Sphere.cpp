@@ -6,7 +6,7 @@ Sphere::Sphere(Vector& center, float radius, Material& material) {
 	this->material = material;
 }
 
-float Sphere::distanceAlongRay(Ray& ray) {
+float Sphere::distanceAlongRay(Ray& ray) const {
 	Vector oc = ray.origin - this->center;
 	float a = ray.direction.magnitudeSquared();
 	float halfB = oc.dot(ray.direction);
@@ -24,6 +24,6 @@ float Sphere::distanceAlongRay(Ray& ray) {
 	return root2;
 }
 
-Vector Sphere::calculateNormal(Vector& point) {
+Vector Sphere::calculateNormal(Vector& point) const {
 	return (point - this->center).normalized();
 }
