@@ -19,8 +19,9 @@ public:
 #endif
 
 	Vector(float x, float y, float z);
+#ifdef USE_SIMD
 	Vector(__m128);
-
+#endif
 	Vector operator+(const Vector& other);
 	void operator+=(const Vector& other);
 	Vector operator-(const Vector& other);

@@ -67,9 +67,9 @@ void Vector::operator+=(const Vector& other) {
 #ifdef USE_SIMD
 	this->sseVector = _mm_add_ps(this->sseVector, other.sseVector);
 #else
-	this.x += other.x;
-	this.y += other.y;
-	this.z += other.z;
+	this->x += other.x;
+	this->y += other.y;
+	this->z += other.z;
 #endif
 }
 
@@ -85,9 +85,9 @@ void Vector::operator-=(const Vector& other) {
 #ifdef USE_SIMD
 	this->sseVector = _mm_sub_ps(this->sseVector, other.sseVector);
 #else
-	this.x -= other.x;
-	this.y -= other.y;
-	this.z -= other.z;
+	this->x -= other.x;
+	this->y -= other.y;
+	this->z -= other.z;
 #endif
 }
 
