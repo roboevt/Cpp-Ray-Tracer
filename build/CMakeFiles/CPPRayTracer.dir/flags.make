@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -isystem /home/roboevt/dev/c++/Cpp-Ray-Tracer/vcpkg/installed/x64-linux/include
 
-CXX_FLAGS = -msse4.1 -std=c++20 -O3
+CXX_FLAGS = -msse4.1 -std=c++20 -march=native -fno-omit-frame-pointer
 

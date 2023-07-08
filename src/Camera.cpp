@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include <cmath>
 
 Camera::Camera() {
 	this->location = Vector(0, 0, 0);
@@ -29,8 +30,60 @@ float Camera::toRadians(float degrees) const {
 	return degrees * M_PI / 180.0f;
 }
 
-void Camera::moveCamera(long long timestep) {
+void Camera::moveCamera(GLFWwindow* window, long long timestep) {
 	float distance = this->speed * timestep;
+
+	if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		this->location.setZ(this->location.getZ() + (speed * this->location.getY() / 2) * sin(this->toRadians(yAngle)) * distance);
+		this->location.setX(this->location.getX() + (speed * this->location.getY() / 2) * cos(this->toRadians(yAngle)) * distance);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+		this->location.setZ(this->location.getZ() - (speed * this->location.getY() / 2) * cos(this->toRadians(yAngle)) * distance);
+		this->location.setX(this->location.getX() + (speed * this->location.getY() / 2) * sin(this->toRadians(yAngle)) * distance);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+		this->location.setZ(this->location.getZ() - (speed * this->location.getY() / 2) * sin(this->toRadians(yAngle)) * distance);
+		this->location.setX(this->location.getX() - (speed * this->location.getY() / 2) * cos(this->toRadians(yAngle)) * distance);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+		this->location.setZ(this->location.getZ() + (speed * this->location.getY() / 2) * cos(this->toRadians(yAngle)) * distance);
+		this->location.setX(this->location.getX() - (speed * this->location.getY() / 2) * sin(this->toRadians(yAngle)) * distance);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+		this->location.setY(this->location.getY() + distance/1000);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+		this->location.setY(this->location.getY() - distance/1000);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+		this->zoom += this->zoom * distance/1000;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+		this->zoom -= this->zoom * distance/1000;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+		this->xAngle -= distance * 0.02;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+		this->xAngle += distance * 0.02;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+		this->yAngle -= distance * 0.02;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+		this->yAngle += distance * 0.02;
+	}
 	
 	// if (GetKeyState('W') & 0x8000) {
 	// 	this->location.setZ(this->location.getZ() + (speed * this->location.getY() / 2) * sin(this->toRadians(yAngle)) * distance);

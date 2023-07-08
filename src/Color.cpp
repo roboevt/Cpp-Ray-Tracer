@@ -26,6 +26,10 @@ Color Color::operator*(float scale) {
 	return Color(rOut, gOut, bOut, this->samples);
 }
 
+bool Color::operator==(Color other) const {
+	return this->r == other.r && this->g == other.g && this->b == other.b;
+}
+
 Color Color::output() {
 	float scale = 1 / static_cast<float>(this->samples);
 	int rOut = static_cast<int>(static_cast<float>(this->r) * scale);

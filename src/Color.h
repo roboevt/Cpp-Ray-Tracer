@@ -13,6 +13,8 @@ public:
 
 	Color operator*(float scale);
 
+	bool operator==(Color other) const;
+
 	Color output();
 };
 

@@ -22,6 +22,9 @@ public:
 	Vector calcBounce (Collision& collision) const;
 
 	Vector randomInUnitSphere() const;
+
+	Color getBackgroundColor() const {
+		return this->backgroundColor;}
 };
 
 #endif // !WORLD_H

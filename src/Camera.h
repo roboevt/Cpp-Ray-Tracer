@@ -4,8 +4,7 @@
 #define _USE_MATH_DEFINES
 
 #include "Ray.h"
-#include <cmath>
-//#include <Windows.h>
+#include <GLFW/glfw3.h>
 
 #include "Vector.h"
 
@@ -18,10 +17,19 @@ public:
 	float zAngle;
 	float zoom;
 	float speed;
+	int samples;
+	int bounceLimit;
+
+	int getSamples() const {
+		return this->samples;
+	}
+	int getBounceLimit() const {
+		return this->bounceLimit;
+	}
 	Camera();
 	Ray generateRay(float x, float y) const;
 	float toRadians(float degrees) const;
-	void moveCamera(long long timestep);
+	void moveCamera(GLFWwindow* window, long long timestep);
 };
 
 #endif // !CAMERA_H

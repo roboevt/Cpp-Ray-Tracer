@@ -1,5 +1,5 @@
 #cmake -B build -S ./src/ -DCMAKE_TOOLCHAIN_FILE=/home/roboevt/dev/c++/Cpp-Ray-Tracer/vcpkg/scripts/buildsystems/vcpkg.cmake
-#cmake --build ./build
+#cmake --build ./build/ --parallel 12
 
 cmake_minimum_required( VERSION 3.12 )
 
@@ -14,7 +14,7 @@ include_directories( ${OPENGL_INCLUDE_DIRS} )
 
 file(GLOB SOURCES *.cpp)
 
-add_compile_options(-msse4.1 -std=c++20 -O3)
+add_compile_options(-msse4.1 -std=c++20 -march=native -fno-omit-frame-pointer)
 
 add_executable( CPPRayTracer ${SOURCES} )
 
