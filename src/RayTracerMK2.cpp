@@ -21,8 +21,8 @@
 #include "Vector.h"
 #include "World.h"
 
-constexpr int width = 640;
-constexpr int height = 480;
+constexpr int width = 1280;
+constexpr int height = 720;
 constexpr float zoom = 1500;
 const int threadCount = std::thread::hardware_concurrency();
 
@@ -37,7 +37,7 @@ static void renderLine(int offset, const Camera& camera, const World& world, uin
             Color pixelColor = Color(0, 0, 0);
             for (int s = 0; s < camera.getSamples(); ++s) {
                 pixelColor = pixelColor + world.calcColor(cameraRay, camera.getBounceLimit() + 1);
-                if(pixelColor == world.getBackgroundColor()) {
+                if (pixelColor == world.getBackgroundColor()) {
                     break;  // TODO find a better way to check if no collision occured
                 }
             }
@@ -143,7 +143,7 @@ int main() {
     Camera camera = Camera();
     camera.zoom = zoom;
     camera.location = Vector(0, .1, -1);
-    camera.samples = 5;
+    camera.samples = 1;
     camera.bounceLimit = 3;
 
     Vector origin = Vector(0, 0, 0);
@@ -193,10 +193,7 @@ int main() {
         frameTime = std::chrono::duration_cast<std::chrono::microseconds>(frameEnd - frameBegin).count();
         renderTime = std::chrono::duration_cast<std::chrono::microseconds>(renderEnd - frameBegin).count();
         drawTime = std::chrono::duration_cast<std::chrono::microseconds>(frameEnd - renderEnd).count();
-        std::cout << "Frame time: " << frameTime / 1000 << "ms\t"
-                  << "Render time: " << renderTime / 1000 << "ms\t"
-                  << "Draw time: " << drawTime / 1000 << "ms\t"
-                  << "Total time: " << (frameTime + overallTime) / 1000 << "ms\n";
+        std::cout << "Frame Time: " << frameTime / 1000 << "ms, (" << 1000 / (frameTime / 1000) << "fps)\t";
         std::cout << "Samples: " << camera.samples << "\tBounce Limit: " << camera.bounceLimit << '\n';
     }
 

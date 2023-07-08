@@ -3091,8 +3091,19 @@ CMakeFiles/CPPRayTracer.dir/World.cpp.o: /home/roboevt/dev/c++/Cpp-Ray-Tracer/sr
   /usr/include/c++/11/bits/parse_numbers.h \
   /usr/include/x86_64-linux-gnu/sys/time.h \
   /usr/include/semaphore.h \
-  /usr/include/x86_64-linux-gnu/bits/semaphore.h
+  /usr/include/x86_64-linux-gnu/bits/semaphore.h \
+  /usr/include/c++/11/random \
+  /usr/include/c++/11/bits/random.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/opt_random.h \
+  /usr/include/c++/11/bits/random.tcc \
+  /usr/include/c++/11/numeric \
+  /usr/include/c++/11/bits/stl_numeric.h \
+  /usr/include/c++/11/bit \
+  /usr/include/c++/11/pstl/glue_numeric_defs.h \
+  /usr/include/c++/11/pstl/execution_defs.h
 
+
+/usr/include/c++/11/bits/random.h:
 
 /home/roboevt/dev/c++/Cpp-Ray-Tracer/src/World.h:
 
@@ -3542,6 +3553,8 @@ CMakeFiles/CPPRayTracer.dir/World.cpp.o: /home/roboevt/dev/c++/Cpp-Ray-Tracer/sr
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
+/usr/include/c++/11/bits/random.tcc:
+
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
@@ -3910,6 +3923,8 @@ CMakeFiles/CPPRayTracer.dir/World.cpp.o: /home/roboevt/dev/c++/Cpp-Ray-Tracer/sr
 
 /usr/include/c++/11/bits/locale_facets.tcc:
 
+/usr/include/x86_64-linux-gnu/c++/11/bits/opt_random.h:
+
 /usr/include/c++/11/pstl/numeric_fwd.h:
 
 /usr/include/c++/11/bits/enable_special_members.h:
@@ -3927,6 +3942,8 @@ CMakeFiles/CPPRayTracer.dir/World.cpp.o: /home/roboevt/dev/c++/Cpp-Ray-Tracer/sr
 /usr/include/c++/11/bits/atomic_timed_wait.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/bmi2intrin.h:
+
+/usr/include/c++/11/random:
 
 /usr/lib/gcc/x86_64-linux-gnu/11/include/cldemoteintrin.h:
 
