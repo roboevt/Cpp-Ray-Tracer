@@ -1,4 +1,3 @@
-#pragma once
 #ifndef SPHERE_H
 #define SPHERE_H
 #include "Ray.h"
@@ -18,4 +17,4 @@ public:
 	Vector calculateNormal(Vector& point) const;
 };
 
-#endif
+#endif // !SPHERE_H

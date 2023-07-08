@@ -1,10 +1,11 @@
-#pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #define _USE_MATH_DEFINES
 
 #include "Ray.h"
 #include <cmath>
-#include <Windows.h>
+//#include <Windows.h>
 
 #include "Vector.h"
 
@@ -23,3 +24,4 @@ public:
 	void moveCamera(long long timestep);
 };
 
+#endif // !CAMERA_H

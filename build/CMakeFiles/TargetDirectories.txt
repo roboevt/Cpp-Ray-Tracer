@@ -1,0 +1,3 @@
+/home/roboevt/dev/c++/Cpp-Ray-Tracer/build/CMakeFiles/CPPRayTracer.dir
+/home/roboevt/dev/c++/Cpp-Ray-Tracer/build/CMakeFiles/edit_cache.dir
+/home/roboevt/dev/c++/Cpp-Ray-Tracer/build/CMakeFiles/rebuild_cache.dir

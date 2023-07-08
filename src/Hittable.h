@@ -1,4 +1,3 @@
-#pragma once
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
@@ -16,4 +15,4 @@ public:
 	virtual Vector calculateNormal(Vector& point);
 };
 
-#endif
+#endif // !HITTABLE_H

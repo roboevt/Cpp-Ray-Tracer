@@ -1,4 +1,3 @@
-#pragma once
 #ifndef RAY_H
 #define RAY_H
 
@@ -17,4 +16,4 @@ public:
 	Vector at(float distance);
 };
 
-#endif
+#endif // !RAY_H

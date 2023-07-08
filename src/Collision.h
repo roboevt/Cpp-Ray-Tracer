@@ -1,4 +1,3 @@
-#pragma once
 #ifndef COLLISION_H
 #define COLLISION_H
 
@@ -23,4 +22,4 @@ public:
 	Collision();
 };
 
-#endif
+#endif // !COLLISION_H

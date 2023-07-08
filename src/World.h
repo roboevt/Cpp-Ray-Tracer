@@ -1,4 +1,3 @@
-#pragma once
 #ifndef WORLD_H
 #define WORLD_H
 #include <vector>
@@ -25,4 +24,4 @@ public:
 	Vector randomInUnitSphere() const;
 };
 
-#endif
+#endif // !WORLD_H

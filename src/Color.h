@@ -1,4 +1,3 @@
-#pragma once
 #ifndef COLOR_H
 #define COLOR_H
 
@@ -17,4 +16,4 @@ public:
 	Color output();
 };
 
-#endif
+#endif // !COLOR_H

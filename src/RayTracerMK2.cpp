@@ -1,7 +1,7 @@
 ﻿#include <iostream>
-#include <Windows.h>
+//#include <Windows.h>
 #include <GLFW/glfw3.h>
-#include <gdiplus.h>
+//#include <gdiplus.h>
 #include <math.h>
 #include <vector>
 #include <thread>
@@ -80,39 +80,39 @@ void drawArray(uint8_t pixelArray[width][height][3]) {
 }
 
 void checkInput() {
-	if (GetKeyState(VK_PRIOR) & 0x8000) {
-		if (!samplesPressed) {
-			samplesPressed = true;
-			samples = samples * 2;
-		}
-	} else if (GetKeyState(VK_NEXT) & 0x8000) {
-		if (!samplesPressed) {
-			samplesPressed = true;
-			if (samples > 1) {
-				samples = samples / 2;
-			}
-		}
-	}
-	else {
-		samplesPressed = false;
-	}
+	// if (GetKeyState(VK_PRIOR) & 0x8000) {
+	// 	if (!samplesPressed) {
+	// 		samplesPressed = true;
+	// 		samples = samples * 2;
+	// 	}
+	// } else if (GetKeyState(VK_NEXT) & 0x8000) {
+	// 	if (!samplesPressed) {
+	// 		samplesPressed = true;
+	// 		if (samples > 1) {
+	// 			samples = samples / 2;
+	// 		}
+	// 	}
+	// }
+	// else {
+	// 	samplesPressed = false;
+	// }
 
-	if (GetKeyState(VK_OEM_PLUS) & 0x8000) {
-		if (!plusOrMinusPressed) {
-			++bounceLimit;
-			plusOrMinusPressed = true;
-		}
-	} else if (GetKeyState(VK_OEM_MINUS) & 0x8000) {
-		if (!plusOrMinusPressed) {
-			plusOrMinusPressed = true;
-			if (bounceLimit >+ 1) {
-				bounceLimit--;
-			}
-		}
-	}
-	else {
-		plusOrMinusPressed = false;
-	}
+	// if (GetKeyState(VK_OEM_PLUS) & 0x8000) {
+	// 	if (!plusOrMinusPressed) {
+	// 		++bounceLimit;
+	// 		plusOrMinusPressed = true;
+	// 	}
+	// } else if (GetKeyState(VK_OEM_MINUS) & 0x8000) {
+	// 	if (!plusOrMinusPressed) {
+	// 		plusOrMinusPressed = true;
+	// 		if (bounceLimit >+ 1) {
+	// 			bounceLimit--;
+	// 		}
+	// 	}
+	// }
+	// else {
+	// 	plusOrMinusPressed = false;
+	// }
 }
 
 World generateWorld() {
@@ -206,7 +206,7 @@ int main()
 				offsets.push_back(i);
 			}
 
-			std::for_each(std::execution::par, std::begin(offsets), std::end(offsets), [camera, world, pixelArray](int i) {
+			std::for_each(std::execution::par_unseq, std::begin(offsets), std::end(offsets), [camera, world, pixelArray](int i) {
 				renderLine(i, &camera, &world, pixelArray);
 			});
 

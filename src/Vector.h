@@ -1,4 +1,3 @@
-#pragma once
 #ifndef VECTOR_H
 #define VECTOR_H
 
@@ -12,7 +11,7 @@
 class Vector
 {
 public:
-#ifdef USE_SIMD:
+#ifdef USE_SIMD
 	__m128 sseVector;
 #else
 	float x, y, z;
@@ -50,4 +49,4 @@ public:
 	Vector() = default;
 };
 
-#endif
+#endif // !VECTOR_H
